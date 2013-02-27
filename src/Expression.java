@@ -21,6 +21,10 @@ public class Expression implements Constante{
 		pileOperateur.push(Operateur);
 	}
 	
+	public int voirTypeSommet(){
+		return pileType.peek();
+	}
+	
 	//controle des types pour Addition, Soustraction, Multiplication et Division
 	public void controlerTypeASMD (int type1, int type2, int operateur)
 	{
