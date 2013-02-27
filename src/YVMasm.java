@@ -5,6 +5,8 @@ public class YVMasm extends YVM{
 
 	protected OutputStream fichier;
 
+	private static int compteurChaine;
+		
 	public YVMasm() {
 		super();
 		fichier = new OutputStream() {
@@ -32,6 +34,9 @@ public class YVMasm extends YVM{
 	
 	@Override
 	public void entete(){
+		Ecriture.ecrireStringln(fichier, "extrn lirent:proc, ecrent:proc");
+		Ecriture.ecrireStringln(fichier, "extrn ecrbool:proc");
+		Ecriture.ecrireStringln(fichier, "extrnecrch:proc, ligsuiv:proc");
 		Ecriture.ecrireStringln(fichier, ". model SMALL");
 		Ecriture.ecrireStringln(fichier, ".586");
 		Ecriture.ecrireStringln(fichier, "");
@@ -206,7 +211,12 @@ public class YVMasm extends YVM{
 	@Override
 	public void ecrireChaine(String chaine) {
 		Ecriture.ecrireStringln(fichier, ".DATA");
-		Ecriture.ecrireStringln(fichier, ".DATA");
+		Ecriture.ecrireStringln(fichier, "mess" + compteurChaine+ " DB \"" + chaine +"$\"");
+		Ecriture.ecrireStringln(fichier, ".CODE");
+		Ecriture.ecrireStringln(fichier, "lea dx,mess" + compteurChaine);
+		Ecriture.ecrireStringln(fichier, "push dx");
+		Ecriture.ecrireStringln(fichier, "call ecrch");
+		compteurChaine++;
 	}
 
 	@Override
