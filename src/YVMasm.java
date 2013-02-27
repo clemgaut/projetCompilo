@@ -21,6 +21,8 @@ public class YVMasm extends YVM{
 		
 	}
 
+
+
 	@Override
 	public void ouvrePrinc(int nbreOctet) {
 
@@ -30,14 +32,18 @@ public class YVMasm extends YVM{
 	
 	@Override
 	public void entete(){
-		//TODO
-		Ecriture.ecrireStringln(fichier, "entete");
+		Ecriture.ecrireStringln(fichier, ". model SMALL");
+		Ecriture.ecrireStringln(fichier, ".586");
+		Ecriture.ecrireStringln(fichier, "");
+		Ecriture.ecrireStringln(fichier, "debut :");
+		Ecriture.ecrireStringln(fichier, "STARTUPCODE");
 	}
 	
 	@Override
 	public void queue(){
-		//TODO
-		Ecriture.ecrireStringln(fichier, "queue");
+		Ecriture.ecrireStringln(fichier, "nop");
+		Ecriture.ecrireStringln(fichier, "exitcode");
+		Ecriture.ecrireStringln(fichier, "end debut");
 	}
 
 	@Override
@@ -94,7 +100,7 @@ public class YVMasm extends YVM{
 	}
 
 	@Override
-	//opérateur moins sur les entiers
+	//operateur moins sur les entiers pour changer le signe
 	public void ineg() {
 		Ecriture.ecrireStringln(fichier, "pop ax");
 		Ecriture.ecrireStringln(fichier, "neg ax");
@@ -190,7 +196,33 @@ public class YVMasm extends YVM{
 		Ecriture.ecrireStringln(fichier, "jmp $+4");
 		Ecriture.ecrireStringln(fichier, "push 0");				
 	}
-
 	
+	@Override
+	public void ecrireEnt() {
+		Ecriture.ecrireStringln(fichier, "call ecrent");
 
+	}
+
+	@Override
+	public void ecrireChaine(String chaine) {
+		Ecriture.ecrireStringln(fichier, ".DATA");
+		Ecriture.ecrireStringln(fichier, ".DATA");
+	}
+
+	@Override
+	public void ecrireBool() {
+		Ecriture.ecrireStringln(fichier, "call ecrbool");
+	}
+
+	@Override
+	public void lireEnt(int offset) {
+		Ecriture.ecrireStringln(fichier, "lea dx, [bp" + offset +"]");
+		Ecriture.ecrireStringln(fichier, "push dx");
+		Ecriture.ecrireStringln(fichier, "call lirent");
+	}
+
+	@Override
+	public void aLaLigne() {
+		Ecriture.ecrireStringln(fichier, "call ligsuiv");
+	}
 }

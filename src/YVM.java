@@ -105,4 +105,24 @@ public class YVM {
 	public void idif(){
 		Ecriture.ecrireStringln(fichier, "idif");
 	}
+	
+	public void ecrireEnt(){
+		Ecriture.ecrireStringln(fichier, "ecrireEnt");
+	}
+	
+	public void ecrireChaine(String chaine){
+		Ecriture.ecrireStringln(fichier, "ecrireChaine " + "\"" + chaine + "\"");
+	}
+	
+	public void ecrireBool(){
+		Ecriture.ecrireStringln(fichier, "ecrireBool");
+	}
+	
+	public void lireEnt(int offset){
+		Ecriture.ecrireStringln(fichier, "lireEnt " + offset);
+	}
+	
+	public void aLaLigne(){
+		Ecriture.ecrireStringln(fichier, "aLaLigne");
+	}	
 }

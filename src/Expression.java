@@ -35,7 +35,7 @@ public class Expression implements Constante{
 			
 	}
 	
-	//controle des types pour supérieur, inférieur, supérieur ou égal et inférieur ou égal
+	//controle des types pour superieur, inferieur, superieur ou egal et inferieur ou egal
 	public void controlerTypeCompar(int type1, int type2, int operateur)
 	{
 		if(type1 == Yaka.ENTIER && type2 == Yaka.ENTIER)
