@@ -1,0 +1,15 @@
+entete
+mov bp,sp
+sub sp,4
+push word ptr [bp-2]
+push 2
+pop bx
+pop ax
+add ax,bx
+push ax
+push 2
+pop bx
+pop ax
+imul ax,bx
+push ax
+queue
