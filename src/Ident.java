@@ -30,4 +30,9 @@ public class Ident {
 	public boolean estConst(){
 		return false;
 	}
+	
+	
+	public int getAttribut(){
+		return 0;
+	}
 }

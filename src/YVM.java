@@ -106,6 +106,23 @@ public class YVM {
 		Ecriture.ecrireStringln(fichier, "idif");
 	}
 	
+	public void ecrire(int type){
+		switch (type) {
+		case Yaka.ENTIER:
+			ecrireEnt();
+			break;
+			
+		case Yaka.BOOLEEN:
+			ecrireBool();
+			break;
+			
+		case Yaka.ERREUR:
+			//TODO Error ! Ach Nein !
+		default:
+			break;
+		}
+	}
+	
 	public void ecrireEnt(){
 		Ecriture.ecrireStringln(fichier, "ecrireEnt");
 	}

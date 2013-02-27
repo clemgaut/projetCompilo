@@ -16,6 +16,10 @@ public class IdConst extends Ident {
 	public int getValeur() {
 		return valeur;
 	}
+	
+	public int getAttribut(){
+		return getValeur();
+	}
 
 	public void setValeur(int valeur) {
 		this.valeur = valeur;

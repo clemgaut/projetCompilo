@@ -219,18 +219,28 @@ void type() :{}
  
 void affectation() : {}
 {
-	<ident> <EGAL> expression()
+	<ident> {Ident temp = tabIdent.chercheIdent(YakaTokenManager.identLu);}
+	<EGAL> expression() {if(temp == null || temp.getType() != expression.voirTypeSommet()){
+							//TODO Erreur
+							}else{yvm.istore(((IdVar)temp).getOffset());}}
 } 
 
 void lecture() : {}
 {
-	<LIRE> "(" <ident> ")"
+	<LIRE> "(" <ident> ")" {Ident id = tabIdent.chercheIdent(YakaTokenManager.identLu);
+				 			 if(id == null || !id.estVar()){System.out.println("Id n'est pas une variable");}
+				 			 else{
+				 			 	yvm.lireEnt(((IdVar)id).getOffset());
+				 			 }
+				 		   }
 }
 
 void ecriture() : {}
 {
-	( <ECRIRE> "(" (expression() | <chaine>) ")" )
-	| <ALALIGNE>
+	( <ECRIRE> "(" (expression() {yvm.ecrire(expression.voirTypeSommet());}
+	                | <chaine>   {yvm.ecrireChaine(YakaTokenManager.chaineLue);}
+	               ) ")" )
+	| <ALALIGNE> {yvm.aLaLigne();}
 }
 
 /*

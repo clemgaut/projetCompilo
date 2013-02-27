@@ -16,6 +16,10 @@ public class IdVar extends Ident {
 	public int getOffset() {
 		return offset;
 	}
+	
+	public int getAttribut(){
+		return getOffset();
+	}
 
 	public void setOffset(int offset) {
 		this.offset = offset;
