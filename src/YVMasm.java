@@ -37,10 +37,11 @@ public class YVMasm extends YVM{
 	public void entete(){
 		Ecriture.ecrireStringln(fichier, "extrn lirent:proc, ecrent:proc");
 		Ecriture.ecrireStringln(fichier, "extrn ecrbool:proc");
-		Ecriture.ecrireStringln(fichier, "extrnecrch:proc, ligsuiv:proc");
-		Ecriture.ecrireStringln(fichier, ". model SMALL");
+		Ecriture.ecrireStringln(fichier, "extrn ecrch:proc, ligsuiv:proc");
+		Ecriture.ecrireStringln(fichier, ".model SMALL");
 		Ecriture.ecrireStringln(fichier, ".586");
 		Ecriture.ecrireStringln(fichier, "");
+		Ecriture.ecrireStringln(fichier, ".CODE");
 		Ecriture.ecrireStringln(fichier, "debut :");
 		Ecriture.ecrireStringln(fichier, "STARTUPCODE");
 	}
@@ -48,14 +49,14 @@ public class YVMasm extends YVM{
 	@Override
 	public void queue(){
 		Ecriture.ecrireStringln(fichier, "nop");
-		Ecriture.ecrireStringln(fichier, "exitcode");
+		Ecriture.ecrireStringln(fichier, "EXITCODE");
 		Ecriture.ecrireStringln(fichier, "end debut");
 	}
 
 	@Override
 	public void iconst(int valeur) {
 		
-		Ecriture.ecrireStringln(fichier, "push " + valeur);
+		Ecriture.ecrireStringln(fichier, "push word ptr " + valeur);
 	}
 
 	@Override
@@ -69,7 +70,7 @@ public class YVMasm extends YVM{
 		
 		super.istore(offset);
 		Ecriture.ecrireStringln(fichier, "pop ax");
-		Ecriture.ecrireStringln(fichier, "move word ptr[bp" + offset +"]");
+		Ecriture.ecrireStringln(fichier, "move word ptr[bp" + offset +"],ax");
 	}
 
 	@Override
@@ -92,7 +93,7 @@ public class YVMasm extends YVM{
 	public void imul() {
 		Ecriture.ecrireStringln(fichier, "pop bx");
 		Ecriture.ecrireStringln(fichier, "pop ax");
-		Ecriture.ecrireStringln(fichier, "imul ax,bx");
+		Ecriture.ecrireStringln(fichier, "imul bx");
 		Ecriture.ecrireStringln(fichier, "push ax");
 	}
 
@@ -212,7 +213,7 @@ public class YVMasm extends YVM{
 	@Override
 	public void ecrireChaine(String chaine) {
 		Ecriture.ecrireStringln(fichier, ".DATA");
-		Ecriture.ecrireStringln(fichier, "mess" + compteurChaine+ " DB \"" + chaine +"$\"");
+		Ecriture.ecrireStringln(fichier, "mess" + compteurChaine+ " DB " + chaine.substring(0, chaine.length() -1) +"$\"");
 		Ecriture.ecrireStringln(fichier, ".CODE");
 		Ecriture.ecrireStringln(fichier, "lea dx,mess" + compteurChaine);
 		Ecriture.ecrireStringln(fichier, "push dx");

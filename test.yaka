@@ -1,15 +1,14 @@
-entete
-mov bp,sp
-sub sp,4
-push word ptr [bp-2]
-push 2
-pop bx
-pop ax
-add ax,bx
-push ax
-push 2
-pop bx
-pop ax
-imul ax,bx
-push ax
-queue
+PROGRAMME entreeSortie
+VAR ENTIER x,y,z;
+ECRIRE(" x= ");
+LIRE(x);
+ALALIGNE;
+ECRIRE(" y= ");
+LIRE(y);
+ALALIGNE;
+ECRIRE(" x+y= ");
+ECRIRE(x+y);
+ALALIGNE;
+z=(x+y/2)/5;
+x=y+3*y-4;
+FPROGRAMME

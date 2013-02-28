@@ -152,7 +152,7 @@ TOKEN  :
 /**************************************/
 void analyse() : {}
 {
-   <PROGRAMME>        <ident>	{yvm.setFichier(YakaTokenManager.identLu + ".yaka");
+   <PROGRAMME>        <ident>	{yvm.setFichier(YakaTokenManager.identLu + yvm.EXTENSION);
         yvm.entete();}
    bloc()
    <FPROGRAMME> {yvm.queue();}

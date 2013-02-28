@@ -42,7 +42,7 @@ public class Yaka implements Constante, YakaConstants {
   static final public void analyse() throws ParseException {
     jj_consume_token(PROGRAMME);
     jj_consume_token(ident);
-                 yvm.setFichier(YakaTokenManager.identLu + ".yaka");
+                 yvm.setFichier(YakaTokenManager.identLu + yvm.EXTENSION);
         yvm.entete();
     bloc();
     jj_consume_token(FPROGRAMME);
@@ -225,7 +225,9 @@ public class Yaka implements Constante, YakaConstants {
     expression();
                              if(temp == null || temp.getType() != expression.voirTypeSommet()){
                                                         //TODO Erreur
-                                                        }else{yvm.istore(((IdVar)temp).getOffset());}
+                                                        }else{yvm.istore(((IdVar)temp).getOffset());
+                                                                  //Permet de supprimer le type en sommet de pile
+                                                                  expression.depilerType();}
   }
 
   static final public void lecture() throws ParseException {
