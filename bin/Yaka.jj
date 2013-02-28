@@ -230,7 +230,7 @@ void affectation() : {}
 void lecture() : {}
 {
 	<LIRE> "(" <ident> ")" {Ident id = tabIdent.chercheIdent(YakaTokenManager.identLu);
-				 			 if(id == null || !id.estVar()){System.out.println("Id n'est pas une variable");}
+				 			 if(id == null || !id.estVar()){System.out.println("Id n'est pas une variable");}
 				 			 else{
 				 			 	yvm.lireEnt(((IdVar)id).getOffset());
 				 			 }
