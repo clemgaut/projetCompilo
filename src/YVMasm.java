@@ -4,6 +4,7 @@ import java.io.OutputStream;
 public class YVMasm extends YVM{
 
 	protected OutputStream fichier;
+	public static String EXTENSION = ".asm";
 
 	private static int compteurChaine;
 		

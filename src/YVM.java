@@ -5,6 +5,7 @@ import java.io.OutputStream;
 public class YVM {
 	
 	protected OutputStream fichier;
+	public static String EXTENSION = ".yaka";
 
 	public YVM() {
 		super();
