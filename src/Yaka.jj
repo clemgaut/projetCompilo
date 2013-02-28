@@ -222,7 +222,9 @@ void affectation() : {}
 	<ident> {Ident temp = tabIdent.chercheIdent(YakaTokenManager.identLu);}
 	<EGAL> expression() {if(temp == null || temp.getType() != expression.voirTypeSommet()){
 							//TODO Erreur
-							}else{yvm.istore(((IdVar)temp).getOffset());}}
+							}else{yvm.istore(((IdVar)temp).getOffset());
+								  //Permet de supprimer le type en sommet de pile
+								  expression.depilerType();}}
 } 
 
 void lecture() : {}
