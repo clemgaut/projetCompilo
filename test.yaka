@@ -1,5 +1,6 @@
-PROGRAMME entreeSortie
-VAR ENTIER x,y,z;
+PROGRAMME testalexis
+VAR ENTIER x,y;
+VAR BOOLEEN z;
 ECRIRE(" x= ");
 LIRE(x);
 ALALIGNE;
@@ -9,6 +10,31 @@ ALALIGNE;
 ECRIRE(" x+y= ");
 ECRIRE(x+y);
 ALALIGNE;
+z=(x+y/2)/VRAI;
+x=y+3*y-4;
+FPROGRAMME
+
+PROGRAMME entreeSortie
+VAR ENTIER x,y,z;
+ECRIRE("x=");
+LIRE(x);
+ALALIGNE;
+ECRIRE("y=");
+LIRE(y);
+ALALIGNE;
+ECRIRE("x+y=");
+ECRIRE(x+y);
+ALALIGNE;
 z=(x+y/2)/5;
 x=y+3*y-4;
 FPROGRAMME
+
+
+//Lors de l'affectation, si le type de l'expression ne correspond pas ou s'il est de type erreur, 
+//le code correspondant n'est pas généré.
+//Lors d'une expression, si les types ne coïncident pas, le code est quand même généré, même s'il n'a aucun sens.
+
+//TODO : Afficher un msg_err lorsqu'une affectation a foiré.
+//TODO : Afficher un msg_err quand le type d'une expression est le type erreur
+//(une seule fois, avec si possible le num de la ligne)
+//TODO tester la validité du code en assembleur.
