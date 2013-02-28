@@ -205,7 +205,7 @@ void type() :{}
  * Syntaxe des instructions.
  */
  
- void suitInstr() : {}
+ void suiteInstr() : {}
  {
  	instruction() (";" (instruction())?)*
  }
