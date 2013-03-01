@@ -78,7 +78,4 @@ pop ax
 sub ax,bx
 push ax
 pop ax
-move word ptr[bp-2],ax
-nop
-EXITCODE
-end debut
+mov word ptr [bp-2], ax

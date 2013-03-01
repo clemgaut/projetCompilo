@@ -20,7 +20,7 @@ public class DeclarationVar extends Declaration implements YakaConstants {
 			nombre++;
 		}
 		else{
-			System.out.println("Ident deja utilise");
+			System.out.println("Ident " + s + " deja utilise");
 		}
 		
 	}

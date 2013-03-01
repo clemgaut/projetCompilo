@@ -5,6 +5,7 @@ public class Yaka implements Constante, YakaConstants {
         public static Declaration declaration = new Declaration();
         public static Expression expression = new Expression();
         public static YVMasm yvm = new YVMasm();
+        public static int cptLigne = 1;
 
   public static void main(String args[]) {
     Yaka analyseur;
@@ -224,7 +225,7 @@ public class Yaka implements Constante, YakaConstants {
     jj_consume_token(EGAL);
     expression();
                              if(temp == null || temp.getType() != expression.voirTypeSommet()){
-                                                        System.out.println("Erreur du type lors de l'affectation");
+                                                        System.out.println("Erreur ligne["+cptLigne+"] : types incompatibles lors de l'affectation" );
                                                         }else{yvm.istore(((IdVar)temp).getOffset());
                                                                   //Permet de supprimer le type en sommet de pile
                                                                   expression.depilerType();}
@@ -236,7 +237,7 @@ public class Yaka implements Constante, YakaConstants {
     jj_consume_token(ident);
     jj_consume_token(54);
                                 Ident id = tabIdent.chercheIdent(YakaTokenManager.identLu);
-                                                         if(id == null || !id.estVar()){System.out.println("Id n'est pas une variable");}
+                                                         if(id == null || !id.estVar()){System.out.println("Erreur ligne["+cptLigne+"] : "+id.getNom()+" n'est pas une variable");}
                                                          else{
                                                                 yvm.lireEnt(((IdVar)id).getOffset());
                                                          }
@@ -301,7 +302,7 @@ public class Yaka implements Constante, YakaConstants {
     }
    if(expression.voirTypeSommet() == Yaka.ERREUR)
   {
-        System.out.println("Erreur lors de l'evaluation de l'expression");
+        System.out.println("Erreur ligne["+cptLigne+"] : evaluation de l'expression impossible");
   }
   }
 
@@ -358,6 +359,7 @@ public class Yaka implements Constante, YakaConstants {
     case MOINS:
       opNeg();
       primaire();
+                         expression.faireOperation();
       break;
     default:
       jj_la1[14] = jj_gen;
@@ -396,14 +398,14 @@ public class Yaka implements Constante, YakaConstants {
     case ident:
       jj_consume_token(ident);
                  Ident id = tabIdent.chercheIdent(YakaTokenManager.identLu);
-                         if(id == null){System.out.println("Id non existant");}
+                         if(id == null){System.out.println("Erreur ligne["+cptLigne+"] : "+id.getNom()+" non existant");}
                          else{
                          expression.empilerType(id.getType());
                          if(id.estVar()){
                                 yvm.iload(((IdVar)id).getOffset());
                          }else if(id.estConst()){
                                 yvm.iconst(((IdConst)id).getValeur());
-                         }else{System.out.println("Type non reconnu");}
+                         }else{System.out.println("Erreur ligne["+cptLigne+"] : type non reconnu");}
                          }
       break;
     case VRAI:
@@ -502,7 +504,7 @@ public class Yaka implements Constante, YakaConstants {
     switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
     case MOINS:
       jj_consume_token(MOINS);
-                 expression.empilerOperateur(MOINS);
+                 expression.empilerOperateur(NEG);
       break;
     case NON:
       jj_consume_token(NON);

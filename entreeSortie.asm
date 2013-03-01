@@ -62,7 +62,7 @@ cwd
 idiv bx
 push ax
 pop ax
-move word ptr[bp-6],ax
+mov word ptr [bp-6], ax
 push word ptr [bp-4]
 push word ptr 3
 push word ptr [bp-4]
@@ -80,7 +80,7 @@ pop ax
 sub ax,bx
 push ax
 pop ax
-move word ptr[bp-2],ax
+mov word ptr [bp-2], ax
 nop
 EXITCODE
 end debut

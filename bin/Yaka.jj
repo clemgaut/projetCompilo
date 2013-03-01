@@ -23,6 +23,7 @@ public class Yaka implements Constante{
 	public static Declaration declaration = new Declaration();
 	public static Expression expression = new Expression();
 	public static YVMasm yvm = new YVMasm();
+	public static int cptLigne = 1;
 
   public static void main(String args[]) { 
     Yaka analyseur;
@@ -69,7 +70,7 @@ SKIP :
 {
   " "
 | "\t"
-| "\n"
+| "\n" {Yaka.cptLigne++;}
 | "\r"
 | "(*"   : IN_COMMENT
 }
@@ -221,7 +222,7 @@ void affectation() : {}
 {
 	<ident> {Ident temp = tabIdent.chercheIdent(YakaTokenManager.identLu);}
 	<EGAL> expression() {if(temp == null || temp.getType() != expression.voirTypeSommet()){
-							//TODO Erreur
+							System.out.println("Erreur ligne["+cptLigne+"] : types incompatibles lors de l'affectation" );
 							}else{yvm.istore(((IdVar)temp).getOffset());
 								  //Permet de supprimer le type en sommet de pile
 								  expression.depilerType();}}
@@ -230,7 +231,7 @@ void affectation() : {}
 void lecture() : {}
 {
 	<LIRE> "(" <ident> ")" {Ident id = tabIdent.chercheIdent(YakaTokenManager.identLu);
-				 			 if(id == null || !id.estVar()){System.out.println("Id n'est pas une variable");}
+				 			 if(id == null || !id.estVar()){System.out.println("Erreur ligne["+cptLigne+"] : "+id.getNom()+" n'est pas une variable");}
 				 			 else{
 				 			 	yvm.lireEnt(((IdVar)id).getOffset());
 				 			 }
@@ -254,6 +255,11 @@ void expression() : {}
   (opRel() 
   simpleExpr() 
   )?
+  {if(expression.voirTypeSommet() == Yaka.ERREUR)  {	System.out.println("Erreur ligne["+cptLigne+"] : evaluation de l'expression impossible");
+  }
+}
+    
+  
 }
 
 
@@ -274,7 +280,7 @@ void terme() : {}
 }
 void facteur() : {}
 {   primaire() 
-  |  opNeg() primaire() 
+  |  opNeg() primaire() {expression.faireOperation();}    
 }
 
 void primaire(): {}
@@ -289,14 +295,14 @@ void valeur() : {}
 			 yvm.iconst(YakaTokenManager.entierLu);}
 			 
  | <ident> 	{Ident id = tabIdent.chercheIdent(YakaTokenManager.identLu);
- 			 if(id == null){System.out.println("Id non existant");}
+ 			 if(id == null){System.out.println("Erreur ligne["+cptLigne+"] : "+id.getNom()+" non existant");}
  			 else{
  			 expression.empilerType(id.getType());
  			 if(id.estVar()){
  			 	yvm.iload(((IdVar)id).getOffset());
  			 }else if(id.estConst()){
  			 	yvm.iconst(((IdConst)id).getValeur());
- 			 }else{System.out.println("Type non reconnu");}
+ 			 }else{System.out.println("Erreur ligne["+cptLigne+"] : type non reconnu");}
  			 }}
  | <VRAI>   {expression.empilerType(BOOLEEN); 
 			 yvm.iconst(VAL_VRAI);}
@@ -330,7 +336,7 @@ void opMult() : {}
 } 
 
 void opNeg() : {}
-{  <MOINS> 	{expression.empilerOperateur(MOINS);}
+{  <MOINS> 	{expression.empilerOperateur(NEG);}
  | <NON>	{expression.empilerOperateur(NON);}
 }
 
