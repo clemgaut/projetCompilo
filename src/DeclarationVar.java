@@ -19,6 +19,9 @@ public class DeclarationVar extends Declaration implements YakaConstants {
 			Yaka.tabIdent.rangeIdent(s, new IdVar(s, type, -(nombre+1)*PAS_PILE));
 			nombre++;
 		}
+		else{
+			System.out.println("Ident deja utilise");
+		}
 		
 	}
 	
