@@ -254,6 +254,11 @@ void expression() : {}
   (opRel() 
   simpleExpr() 
   )?
+  {if(expression.voirTypeSommet() == Yaka.ERREUR)  {	System.out.println("Erreur lors de l'evaluation de l'expression");
+  }
+}
+    
+  
 }
 
 
