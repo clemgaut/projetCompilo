@@ -1,7 +1,7 @@
 import java.util.Stack;
 
 public class Declaration implements YakaConstants{
-	//Le nom courant de l'identifiant en train d'être évalué
+	//Le nom courant de l'identifiant en train d'ï¿½tre ï¿½valuï¿½
 	protected static Stack<String> nomIdent = new Stack<String>();
 
 	public Declaration() {
@@ -13,4 +13,5 @@ public class Declaration implements YakaConstants{
 		nomIdent.push(s);
 	}
 
+	
 }

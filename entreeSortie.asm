@@ -10,7 +10,7 @@ STARTUPCODE
 mov bp,sp
 sub sp,6
 .DATA
-mess0 DB " x= $"
+mess0 DB "x=$"
 .CODE
 lea dx,mess0
 push dx
@@ -20,7 +20,7 @@ push dx
 call lirent
 call ligsuiv
 .DATA
-mess1 DB " y= $"
+mess1 DB "y=$"
 .CODE
 lea dx,mess1
 push dx
@@ -30,7 +30,7 @@ push dx
 call lirent
 call ligsuiv
 .DATA
-mess2 DB " x+y= $"
+mess2 DB "x+y=$"
 .CODE
 lea dx,mess2
 push dx
@@ -68,7 +68,7 @@ push word ptr 3
 push word ptr [bp-4]
 pop bx
 pop ax
-imul ax,bx
+imul bx
 push ax
 pop bx
 pop ax
@@ -82,5 +82,5 @@ push ax
 pop ax
 move word ptr[bp-2],ax
 nop
-exitcode
+EXITCODE
 end debut
