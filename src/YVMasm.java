@@ -70,7 +70,7 @@ public class YVMasm extends YVM{
 		
 		super.istore(offset);
 		Ecriture.ecrireStringln(fichier, "pop ax");
-		Ecriture.ecrireStringln(fichier, "move word ptr[bp" + offset +"],ax");
+		Ecriture.ecrireStringln(fichier, "mov word ptr [bp" + offset +"], ax");
 	}
 
 	@Override
