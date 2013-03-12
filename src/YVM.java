@@ -143,4 +143,26 @@ public class YVM {
 	public void aLaLigne(){
 		Ecriture.ecrireStringln(fichier, "aLaLigne");
 	}	
+	
+	
+	public void faire(int nb){
+		Ecriture.ecrireStringln(fichier, "FAIRE"+ nb +":");
+	}
+	
+	public void iffaux(int nb){
+		Ecriture.ecrireStringln(fichier, "iffaux FAIT"+ nb);
+	}
+	
+	public void gotoFaire(int nb){
+		Ecriture.ecrireStringln(fichier, "goto FAIRE"+ nb);
+	}
+	
+	public void fait(int nb){
+		Ecriture.ecrireStringln(fichier, "FAIT"+ nb +":");
+
+	}
+	
+		
+	
+	
 }
