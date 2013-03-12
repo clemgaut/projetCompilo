@@ -6,6 +6,7 @@ public class Yaka implements Constante, YakaConstants {
         public static Expression expression = new Expression();
         public static YVMasm yvm = new YVMasm();
         public static int cptLigne = 1;
+        public static int cptIteMax = 1, cptIteCourant = 1;
 
   public static void main(String args[]) {
     Yaka analyseur;
@@ -192,6 +193,7 @@ public class Yaka implements Constante, YakaConstants {
       }
       jj_consume_token(52);
       switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
+      case TANTQUE:
       case ECRIRE:
       case LIRE:
       case ALALIGNE:
@@ -216,6 +218,9 @@ public class Yaka implements Constante, YakaConstants {
     case ECRIRE:
     case ALALIGNE:
       ecriture();
+      break;
+    case TANTQUE:
+      iteration();
       break;
     default:
       jj_la1[8] = jj_gen;
@@ -262,7 +267,8 @@ public class Yaka implements Constante, YakaConstants {
       case ident:
       case 53:
         expression();
-                                      yvm.ecrire(expression.voirTypeSommet());
+                                      if(yvm.ecrire(expression.voirTypeSommet())==0){
+                                                                        System.out.println("Erreur ligne["+cptLigne+"] : ecriture impossible");}        ;
         break;
       case chaine:
         jj_consume_token(chaine);
@@ -284,6 +290,24 @@ public class Yaka implements Constante, YakaConstants {
       jj_consume_token(-1);
       throw new ParseException();
     }
+  }
+
+  static final public void iteration() throws ParseException {
+    jj_consume_token(TANTQUE);
+                   yvm.faire(cptIteMax);
+                                cptIteCourant = cptIteMax;
+                                cptIteMax++;
+    expression();
+                      if(expression.voirTypeSommet() != YakaConstants.BOOLEEN){
+                                                                System.out.println("Erreur ligne["+cptLigne+"] : expression non booleene");
+                                                        }
+    jj_consume_token(FAIRE);
+                 yvm.iffaux(cptIteCourant);
+    suiteInstr();
+    jj_consume_token(FAIT);
+                yvm.gotoFaire(cptIteCourant);
+                        yvm.fait(cptIteCourant);
+                        cptIteCourant--;
   }
 
 /*
@@ -541,7 +565,7 @@ public class Yaka implements Constante, YakaConstants {
       jj_la1_init_1();
    }
    private static void jj_la1_init_0() {
-      jj_la1_0 = new int[] {0x80000,0x200,0x0,0x120000,0x0,0x8100,0x0,0x0,0x0,0x1120000,0x0,0x0,0x400000,0x800000,0x1120000,0x120000,0x120000,0x0,0x400000,0x800000,0x1000000,};
+      jj_la1_0 = new int[] {0x80000,0x200,0x0,0x120000,0x0,0x8100,0x0,0x40000,0x40000,0x1120000,0x0,0x0,0x400000,0x800000,0x1120000,0x120000,0x120000,0x0,0x400000,0x800000,0x1000000,};
    }
    private static void jj_la1_init_1() {
       jj_la1_1 = new int[] {0x0,0x0,0x80000,0x28000,0x80000,0x0,0x100000,0x20007,0x20007,0x268010,0x5,0x1f80,0x18,0x60,0x228010,0x228000,0x28000,0x1f80,0x18,0x60,0x10,};

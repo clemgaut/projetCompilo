@@ -24,6 +24,7 @@ public class Yaka implements Constante{
 	public static Expression expression = new Expression();
 	public static YVMasm yvm = new YVMasm();
 	public static int cptLigne = 1;
+	public static int cptIteMax = 1, cptIteCourant = 1;
 
   public static void main(String args[]) { 
     Yaka analyseur;
@@ -221,6 +222,7 @@ void type() :{}
  	  affectation()
  	| lecture()
  	| ecriture()
+ 	| iteration()
  }
  
 void affectation() : {}
@@ -245,10 +247,26 @@ void lecture() : {}
 
 void ecriture() : {}
 {
-	( <ECRIRE> "(" (expression() {yvm.ecrire(expression.voirTypeSommet());}
+	( <ECRIRE> "(" (expression() {if(yvm.ecrire(expression.voirTypeSommet())==0){
+									System.out.println("Erreur ligne["+cptLigne+"] : ecriture impossible");}	;}
 	                | <chaine>   {yvm.ecrireChaine(YakaTokenManager.chaineLue);}
 	               ) ")" )
 	| <ALALIGNE> {yvm.aLaLigne();}
+}
+
+void iteration() : {}
+{
+	<TANTQUE> {yvm.faire(cptIteMax);
+				cptIteCourant = cptIteMax;
+				cptIteMax++;}
+	expression() {if(expression.voirTypeSommet() != YakaConstants.BOOLEEN){
+								System.out.println("Erreur ligne["+cptLigne+"] : expression non booleene");
+							}}
+	<FAIRE> {yvm.iffaux(cptIteCourant);}
+	suiteInstr()
+	<FAIT> {yvm.gotoFaire(cptIteCourant);
+			yvm.fait(cptIteCourant);
+			cptIteCourant--;}
 }
 
 /*

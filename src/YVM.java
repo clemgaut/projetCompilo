@@ -107,7 +107,8 @@ public class YVM {
 		Ecriture.ecrireStringln(fichier, "idif");
 	}
 	
-	public void ecrire(int type){
+	public int ecrire(int type){
+		int valide = 1;
 		switch (type) {
 		case Yaka.ENTIER:
 			ecrireEnt();
@@ -118,10 +119,11 @@ public class YVM {
 			break;
 			
 		case Yaka.ERREUR:
-			//TODO Error ! Ach Nein !
+			valide=0;
 		default:
 			break;
 		}
+		return valide;
 	}
 	
 	public void ecrireEnt(){
@@ -129,7 +131,7 @@ public class YVM {
 	}
 	
 	public void ecrireChaine(String chaine){
-		Ecriture.ecrireStringln(fichier, "ecrireChaine " + "\"" + chaine + "\"");
+		Ecriture.ecrireStringln(fichier, "ecrireChaine "  + chaine);
 	}
 	
 	public void ecrireBool(){
