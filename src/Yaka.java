@@ -30,10 +30,15 @@ public class Yaka implements Constante, YakaConstants {
       analyseur = new Yaka(input);
       analyseur.analyse();
       System.out.println("analyse syntaxique reussie!");
-    } catch (ParseException e) {
+    } catch (Exception e) {//Parse exception avant
       String msg = e.getMessage();
-      msg = msg.substring(0,msg.indexOf("\u005cn"));
-      System.out.println("Erreur de syntaxe : "+msg);
+      if(msg!=null){
+        msg= msg.substring(msg.indexOf(System.getProperty("line.separator")));
+        System.out.println("ligne[" + cptLigne+ "] : Erreur de syntaxe : "+msg);
+      }
+      else
+          System.out.println("ligne[" + cptLigne+ "] : Erreur de syntaxe");
+
     }
   }
 
@@ -295,6 +300,7 @@ public class Yaka implements Constante, YakaConstants {
     case EGAL:
       opRel();
       simpleExpr();
+                expression.faireOperation();
       break;
     default:
       jj_la1[11] = jj_gen;

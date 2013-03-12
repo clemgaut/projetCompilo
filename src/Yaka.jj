@@ -48,10 +48,15 @@ public class Yaka implements Constante{
       analyseur = new Yaka(input);
       analyseur.analyse();
       System.out.println("analyse syntaxique reussie!");
-    } catch (ParseException e) {
+    } catch (Exception e) {//Parse exception avant
       String msg = e.getMessage();
-      msg = msg.substring(0,msg.indexOf("\n"));
-      System.out.println("Erreur de syntaxe : "+msg);
+      if(msg!=null){
+    	msg= msg.substring(msg.indexOf(System.getProperty("line.separator")));
+    	System.out.println("ligne[" + cptLigne+ "] : Erreur de syntaxe : "+msg);
+      }
+      else
+    	  System.out.println("ligne[" + cptLigne+ "] : Erreur de syntaxe");
+      
     }
   } 
 }
@@ -253,7 +258,7 @@ void expression() : {}
 {
   simpleExpr() 
   (opRel() 
-  simpleExpr() 
+  simpleExpr() {expression.faireOperation();}
   )?
   {if(expression.voirTypeSommet() == Yaka.ERREUR)  {	System.out.println("Erreur ligne["+cptLigne+"] : evaluation de l'expression impossible");
   }
