@@ -159,10 +159,5 @@ public class YVM {
 	
 	public void fait(int nb){
 		Ecriture.ecrireStringln(fichier, "FAIT"+ nb +":");
-
 	}
-	
-		
-	
-	
 }

@@ -237,4 +237,26 @@ public class YVMasm extends YVM{
 	public void aLaLigne() {
 		Ecriture.ecrireStringln(fichier, "call ligsuiv");
 	}
+
+	@Override
+	public void faire(int nb) {
+		Ecriture.ecrireStringln(fichier, "FAIRE" + nb +":");
+	}
+
+	@Override
+	public void iffaux(int nb) {
+		Ecriture.ecrireStringln(fichier, "pop ax");
+		Ecriture.ecrireStringln(fichier, "cmp ax,0");
+		Ecriture.ecrireStringln(fichier, "je FAIT" + nb);
+	}
+
+	@Override
+	public void gotoFaire(int nb) {
+		Ecriture.ecrireStringln(fichier, "jmp FAIRE" + nb);
+	}
+
+	@Override
+	public void fait(int nb) {
+		Ecriture.ecrireStringln(fichier, "FAIT" + nb +":");
+	}	
 }
