@@ -283,10 +283,9 @@ void conditionelle() : {}
 								System.out.println("Erreur ligne["+cptLigne+"] : expression non booleene");
 							}}
 	<ALORS> {yvm.iffaux(cptCondCourant, "SINON");}
-	suiteInstr() 
-	(<SINON> {yvm.gotoFSI(cptCondCourant);
+	suiteInstr() {yvm.gotoFSI(cptCondCourant);
 				yvm.sinon(cptCondCourant);}
-	suiteInstr())? 
+	(<SINON> suiteInstr())? 
 	<FSI> {yvm.finSi(cptCondCourant);
 			cptCondCourant--;}
 }
