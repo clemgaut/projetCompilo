@@ -272,8 +272,33 @@ public class YVMasm extends YVM{
 
 	@Override
 	public void fait(int nb) {
-		Ecriture.ecrireStringln(fichier, "FAIT" + nb +":");
-		
-		
+		Ecriture.ecrireStringln(fichier, "FAIT" + nb +":");		
+	}
+
+	@Override
+	public void ouvreBloc(int taille_var_loc) {
+		Ecriture.ecrireStringln(fichier, "enter " + taille_var_loc +",0");
+	}
+
+	@Override
+	public void fermeBloc(int taille_param) {
+		Ecriture.ecrireStringln(fichier, "leave");
+		Ecriture.ecrireStringln(fichier, "ret " + taille_param);
+	}
+
+	@Override
+	public void ireturn(int offset) {
+		Ecriture.ecrireStringln(fichier, "pop ax");
+		Ecriture.ecrireStringln(fichier, "mov [bp+" + offset +"],ax");
+	}
+
+	@Override
+	public void reserveRetour() {
+		Ecriture.ecrireStringln(fichier, "sub sp,2");
+	}
+
+	@Override
+	public void call(String nom) {
+		Ecriture.ecrireStringln(fichier, "call " + nom);
 	}	
 }

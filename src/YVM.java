@@ -175,4 +175,25 @@ public class YVM {
 		Ecriture.ecrireStringln(fichier, "FSI"+ nb +":");
 	}
 	
+	public void ouvreBloc(int taille_var_loc){
+		Ecriture.ecrireStringln(fichier, "ouvbloc " + taille_var_loc);
+	}
+	
+	public void fermeBloc(int taille_param){
+		Ecriture.ecrireStringln(fichier, "fermebloc " + taille_param);
+	}
+	
+	public void ireturn(int offset){
+		Ecriture.ecrireStringln(fichier, "ireturn "+ offset);
+	}
+	
+	public void reserveRetour(){
+		Ecriture.ecrireStringln(fichier, "reserveRetour");
+	}
+	
+	public void call(String nom){
+		Ecriture.ecrireStringln(fichier, "call " + nom);
+	}
+	
+	
 }
