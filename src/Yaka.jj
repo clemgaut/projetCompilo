@@ -25,6 +25,7 @@ public class Yaka implements Constante{
 	public static YVMasm yvm = new YVMasm();
 	public static int cptLigne = 1;
 	public static int cptIteMax = 1, cptIteCourant = 1;
+	public static int cptCondMax = 1, cptCondCourant = 1;
 
   public static void main(String args[]) { 
     Yaka analyseur;
@@ -223,6 +224,7 @@ void type() :{}
  	| lecture()
  	| ecriture()
  	| iteration()
+ 	| conditionelle()
  }
  
 void affectation() : {}
@@ -262,11 +264,27 @@ void iteration() : {}
 	expression() {if(expression.voirTypeSommet() != YakaConstants.BOOLEEN){
 								System.out.println("Erreur ligne["+cptLigne+"] : expression non booleene");
 							}}
-	<FAIRE> {yvm.iffaux(cptIteCourant);}
+	<FAIRE> {yvm.iffaux(cptIteCourant, "FAIT");}
 	suiteInstr()
 	<FAIT> {yvm.gotoFaire(cptIteCourant);
 			yvm.fait(cptIteCourant);
 			cptIteCourant--;}
+}
+
+void conditionelle() : {}
+{
+	<SI> {cptCondCourant = cptCondMax;
+			cptCondMax++;}
+	expression() {if(expression.voirTypeSommet() != YakaConstants.BOOLEEN){
+								System.out.println("Erreur ligne["+cptLigne+"] : expression non booleene");
+							}}
+	<ALORS> {yvm.iffaux(cptCondCourant, "SINON");}
+	suiteInstr() 
+	<SINON> {yvm.gotoFSI(cptCondCourant);
+				yvm.sinon(cptCondCourant);}
+	suiteInstr() 
+	<FSI> {yvm.finSi(cptCondCourant);
+			cptCondCourant--;}
 }
 
 /*
