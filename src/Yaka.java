@@ -326,11 +326,11 @@ public class Yaka implements Constante, YakaConstants {
     jj_consume_token(ALORS);
                  yvm.iffaux(cptCondCourant, "SINON");
     suiteInstr();
+                      yvm.gotoFSI(cptCondCourant);
+                                yvm.sinon(cptCondCourant);
     switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
     case SINON:
       jj_consume_token(SINON);
-                  yvm.gotoFSI(cptCondCourant);
-                                yvm.sinon(cptCondCourant);
       suiteInstr();
       break;
     default:
