@@ -16,12 +16,12 @@ public class DeclarationConst extends Declaration {
 						Yaka.tabIdent.rangeIdent(nom, new IdConst(nom, id.getType(), ((IdVar)id).getOffset()));
 				}
 				else{
-					System.out.println("Probleme ident deja defini");
+					//System.out.println("Probleme ident deja defini");
 				}
 			}
 			else{
 				//TODO ident non present exception
-				System.out.println("Probleme ident non present");
+				//System.out.println("Probleme ident non present");
 			}
 		}
 
@@ -31,7 +31,7 @@ public class DeclarationConst extends Declaration {
 				Yaka.tabIdent.rangeIdent(nom, new IdConst(nom, ENTIER, val));
 			}
 			else{
-				System.out.println("Probleme ident deja defini");
+				//System.out.println("Probleme ident deja defini");
 			}
 		}
 
@@ -41,7 +41,11 @@ public class DeclarationConst extends Declaration {
 				Yaka.tabIdent.rangeIdent(nom, new IdConst(nom, BOOLEEN, val));
 			}
 			else{
-				System.out.println("Probleme ident deja defini");
+				//System.out.println("Probleme ident deja defini");
 			}
+		}
+		
+		public static boolean existeIdentSommet(){
+			return Yaka.tabIdent.existeIdent(nomIdent.peek());
 		}
 }

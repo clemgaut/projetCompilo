@@ -20,10 +20,11 @@ public class DeclarationVar extends Declaration implements YakaConstants {
 			nombre++;
 		}
 		else{
-			System.out.println("Ident " + s + " deja utilise");
+			//System.out.println("Ident " + s + " deja utilise");
 		}
-		
 	}
 	
-
+	public static boolean existeIdentSommet(String nomIdent){
+		return Yaka.tabIdent.existeIdent(nomIdent);
+	}
 }

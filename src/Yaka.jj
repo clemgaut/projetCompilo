@@ -182,14 +182,21 @@ void declConst() : {}
 void defConst() : {}
 {
 	
-  <ident> { DeclarationConst.affecteNomIdent(YakaTokenManager.identLu);}
+  <ident> { DeclarationConst.affecteNomIdent(YakaTokenManager.identLu);
+  			if(DeclarationConst.existeIdentSommet()){
+  				System.out.println("Erreur ligne["+cptLigne+"] : identifiant "+ YakaTokenManager.identLu +" deja present" );}}
    "=" valConst()
     
 }
 
 void valConst() : {}{
   <entier> 	{ DeclarationConst.ajouterIdentEntier(YakaTokenManager.entierLu);}	
- | <ident>	{ DeclarationConst.ajouterIdent(tabIdent.chercheIdent(YakaTokenManager.identLu));}
+ | <ident>	{ if(tabIdent.chercheIdent(YakaTokenManager.identLu)==null){
+ 					System.out.println("Erreur ligne["+cptLigne+"] : identifiant "+ YakaTokenManager.identLu +" non defini" );
+ 				}
+ 				else{
+ 					DeclarationConst.ajouterIdent(tabIdent.chercheIdent(YakaTokenManager.identLu));
+ 					}}
  | <VRAI> 	{ DeclarationConst.ajouterIdentBooleen(VRAI);}	
  | <FAUX> 	{ DeclarationConst.ajouterIdentBooleen(FAUX);}	
 }
@@ -199,11 +206,13 @@ void declVar() : {}
 {
   <VAR> type()
     	
-  <ident> {DeclarationVar.affecteNomIdent(YakaTokenManager.identLu);}
+  <ident> {if(Yaka.tabIdent.existeIdent(YakaTokenManager.identLu)){System.out.println("Erreur ligne["+cptLigne+"] : identifiant " + YakaTokenManager.identLu + " deja utilise");}
+      		else{DeclarationVar.affecteNomIdent(YakaTokenManager.identLu);}}
 
     		
   ("," 
-      <ident>  {DeclarationVar.affecteNomIdent(YakaTokenManager.identLu);}
+      <ident>  {if(Yaka.tabIdent.existeIdent(YakaTokenManager.identLu)){System.out.println("Erreur ligne["+cptLigne+"] : identifiant " + YakaTokenManager.identLu + " deja utilise");}
+      		else{DeclarationVar.affecteNomIdent(YakaTokenManager.identLu);}}
   )* ";"{}
 	
 }

@@ -108,6 +108,8 @@ public class Yaka implements Constante, YakaConstants {
   static final public void defConst() throws ParseException {
     jj_consume_token(ident);
             DeclarationConst.affecteNomIdent(YakaTokenManager.identLu);
+                        if(DeclarationConst.existeIdentSommet()){
+                                System.out.println("Erreur ligne["+cptLigne+"] : identifiant "+ YakaTokenManager.identLu +" deja present" );}
     jj_consume_token(EGAL);
     valConst();
   }
@@ -120,7 +122,12 @@ public class Yaka implements Constante, YakaConstants {
       break;
     case ident:
       jj_consume_token(ident);
-                  DeclarationConst.ajouterIdent(tabIdent.chercheIdent(YakaTokenManager.identLu));
+                  if(tabIdent.chercheIdent(YakaTokenManager.identLu)==null){
+                                        System.out.println("Erreur ligne["+cptLigne+"] : identifiant "+ YakaTokenManager.identLu +" non defini" );
+                                }
+                                else{
+                                        DeclarationConst.ajouterIdent(tabIdent.chercheIdent(YakaTokenManager.identLu));
+                                        }
       break;
     case VRAI:
       jj_consume_token(VRAI);
@@ -141,7 +148,8 @@ public class Yaka implements Constante, YakaConstants {
     jj_consume_token(VAR);
     type();
     jj_consume_token(ident);
-           DeclarationVar.affecteNomIdent(YakaTokenManager.identLu);
+           if(Yaka.tabIdent.existeIdent(YakaTokenManager.identLu)){System.out.println("Erreur ligne["+cptLigne+"] : identifiant " + YakaTokenManager.identLu + " deja utilise");}
+                else{DeclarationVar.affecteNomIdent(YakaTokenManager.identLu);}
     label_4:
     while (true) {
       switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
@@ -154,7 +162,8 @@ public class Yaka implements Constante, YakaConstants {
       }
       jj_consume_token(51);
       jj_consume_token(ident);
-                DeclarationVar.affecteNomIdent(YakaTokenManager.identLu);
+                if(Yaka.tabIdent.existeIdent(YakaTokenManager.identLu)){System.out.println("Erreur ligne["+cptLigne+"] : identifiant " + YakaTokenManager.identLu + " deja utilise");}
+                else{DeclarationVar.affecteNomIdent(YakaTokenManager.identLu);}
     }
     jj_consume_token(52);
 
