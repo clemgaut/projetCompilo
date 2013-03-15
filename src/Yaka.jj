@@ -280,9 +280,9 @@ void conditionelle() : {}
 							}}
 	<ALORS> {yvm.iffaux(cptCondCourant, "SINON");}
 	suiteInstr() 
-	<SINON> {yvm.gotoFSI(cptCondCourant);
+	(<SINON> {yvm.gotoFSI(cptCondCourant);
 				yvm.sinon(cptCondCourant);}
-	suiteInstr() 
+	suiteInstr())? 
 	<FSI> {yvm.finSi(cptCondCourant);
 			cptCondCourant--;}
 }
