@@ -244,19 +244,36 @@ public class YVMasm extends YVM{
 	}
 
 	@Override
-	public void iffaux(int nb) {
+	public void iffaux(int nb, String param) {
 		Ecriture.ecrireStringln(fichier, "pop ax");
 		Ecriture.ecrireStringln(fichier, "cmp ax,0");
-		Ecriture.ecrireStringln(fichier, "je FAIT" + nb);
+		Ecriture.ecrireStringln(fichier, "je"+ param + nb);
 	}
 
 	@Override
 	public void gotoFaire(int nb) {
 		Ecriture.ecrireStringln(fichier, "jmp FAIRE" + nb);
 	}
+	
+	@Override
+	public void gotoFSI(int nb) {
+		Ecriture.ecrireStringln(fichier, "jmp FSI" + nb);		
+	}
+
+	@Override
+	public void sinon(int nb) {
+		Ecriture.ecrireStringln(fichier, "SINON" + nb +":");
+	}
+
+	@Override
+	public void finSi(int nb) {
+		Ecriture.ecrireStringln(fichier, "FSI" + nb +":");
+	}
 
 	@Override
 	public void fait(int nb) {
 		Ecriture.ecrireStringln(fichier, "FAIT" + nb +":");
+		
+		
 	}	
 }

@@ -151,8 +151,8 @@ public class YVM {
 		Ecriture.ecrireStringln(fichier, "FAIRE"+ nb +":");
 	}
 	
-	public void iffaux(int nb){
-		Ecriture.ecrireStringln(fichier, "iffaux FAIT"+ nb);
+	public void iffaux(int nb, String param){
+		Ecriture.ecrireStringln(fichier, "iffaux"+ param+ nb);
 	}
 	
 	public void gotoFaire(int nb){
@@ -162,4 +162,17 @@ public class YVM {
 	public void fait(int nb){
 		Ecriture.ecrireStringln(fichier, "FAIT"+ nb +":");
 	}
+	
+	public void gotoFSI(int nb){
+		Ecriture.ecrireStringln(fichier, "goto FSI"+ nb);
+	}
+	
+	public void sinon(int nb){
+		Ecriture.ecrireStringln(fichier, "SINON"+ nb +":");
+	}
+	
+	public void finSi(int nb){
+		Ecriture.ecrireStringln(fichier, "FSI"+ nb +":");
+	}
+	
 }
