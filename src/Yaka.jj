@@ -1,6 +1,6 @@
 /*
  *
- *       Auteur: Pedrono Marie-Jo
+ *       Auteur: Boyer Alexis, Francois Thomas, the G-man
  *
  * 	cr�ation : 13 f�vrier 2002
  *
@@ -160,7 +160,8 @@ TOKEN  :
 /**************************************/
 void analyse() : {}
 {
-   <PROGRAMME>        <ident>	{yvm.setFichier(YakaTokenManager.identLu + yvm.EXTENSION);
+   <PROGRAMME>  
+      <ident>	{yvm.setFichier(YakaTokenManager.identLu + yvm.EXTENSION);
         yvm.entete();}
    bloc()
    <FPROGRAMME> {yvm.queue();}
@@ -196,8 +197,11 @@ void valConst() : {}{
 
 void declVar() : {}
 {
-  <VAR> type()    	
-  <ident> {DeclarationVar.affecteNomIdent(YakaTokenManager.identLu);}    		
+  <VAR> type()
+    	
+  <ident> {DeclarationVar.affecteNomIdent(YakaTokenManager.identLu);}
+
+    		
   ("," 
       <ident>  {DeclarationVar.affecteNomIdent(YakaTokenManager.identLu);}
   )* ";"{}
@@ -296,7 +300,9 @@ void expression() : {}
   (opRel() 
   simpleExpr() {expression.faireOperation();}
   )?
-  {if(expression.voirTypeSommet() == Yaka.ERREUR)  {	System.out.println("Erreur ligne["+cptLigne+"] : evaluation de l'expression impossible");
+  {if(expression.voirTypeSommet() == Yaka.ERREUR)
+  {
+	System.out.println("Erreur ligne["+cptLigne+"] : evaluation de l'expression impossible");
   }
 }
     
