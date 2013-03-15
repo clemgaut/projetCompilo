@@ -247,7 +247,7 @@ public class YVMasm extends YVM{
 	public void iffaux(int nb, String param) {
 		Ecriture.ecrireStringln(fichier, "pop ax");
 		Ecriture.ecrireStringln(fichier, "cmp ax,0");
-		Ecriture.ecrireStringln(fichier, "je"+ param + nb);
+		Ecriture.ecrireStringln(fichier, "je "+ param + nb);
 	}
 
 	@Override
