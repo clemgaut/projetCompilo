@@ -31,6 +31,14 @@ public class Ident {
 		return false;
 	}
 	
+	//TODO Peut etre inutile
+	public boolean estFonct(){
+		return false;
+	}
+	
+	public boolean estParam(){
+		return false;
+	}
 	
 	public int getAttribut(){
 		return 0;

@@ -1,8 +1,12 @@
 
 public class DeclarationVar extends Declaration implements YakaConstants {
 	
+	//type de variable (booleen, entier)
 	static protected int type;
+	
+	//nombre de variables declarees
 	static protected int nombre = 0;
+	
 	//pas pour l'offset
 	static public int PAS_PILE = 2;
 	
@@ -22,6 +26,10 @@ public class DeclarationVar extends Declaration implements YakaConstants {
 		else{
 			//System.out.println("Ident " + s + " deja utilise");
 		}
+	}
+	
+	public static void initialisationCompteur(){
+		nombre=0;
 	}
 	
 	public static boolean existeIdentSommet(String nomIdent){

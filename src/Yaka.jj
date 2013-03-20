@@ -163,7 +163,7 @@ void analyse() : {}
    <PROGRAMME>  
       <ident>	{yvm.setFichier(YakaTokenManager.identLu + yvm.EXTENSION);
         yvm.entete();}
-   {declFonction()}*
+   (declFonction())*
    <PRINCIPAL>
    bloc()
    <FPRINCIPAL>
@@ -172,17 +172,30 @@ void analyse() : {}
 
 void declFonction() : {}
 {
-	typeFonction() <FONCTION> <ident> paramForms() bloc() <FFONCTION>
+	typeFonction() <FONCTION> <ident> {if(Yaka.tabIdent.existeFonct(YakaTokenManager.identLu)){
+										System.out.println("Erreur ligne["+cptLigne+"] : identifiant "+ YakaTokenManager.identLu +" deja present" );
+										}else{
+										DeclarationFonct.creerFonct(YakaTokenManager.identLu);
+										}}
+	paramForms() {DeclarationFonct.ajouterFonctCourante();}
+	bloc() <FFONCTION> {Yaka.tabIdent.effacer();
+						DeclarationVar.initialisationCompteur();
+						DeclarationParam.initialisationCompteur();}
 }
 
 void paramForms() : {}
 {
-	(paramForm() ("," paramForm())* )?
+	"(" (paramForm() ("," paramForm())* )? ")"
 }
 
 void paramForm() : {}
 {
-	type() <ident>
+	typeParam() <ident> {if(!Yaka.tabIdent.existeIdent(YakaTokenManager.identLu)){
+							DeclarationFonct.ajouterParam(DeclarationParam.getType());
+							DeclarationParam.affecteNomIdent(YakaTokenManager.identLu);}
+						else{
+						System.out.println("Erreur ligne["+cptLigne+"] : parametre "+ YakaTokenManager.identLu +" deja present");
+						}}
 }
 
 void bloc() : {}{
@@ -240,6 +253,19 @@ void type() :{}
    <ENTIER> {DeclarationVar.changerType(YakaConstants.ENTIER);}	
  | <BOOLEEN> {DeclarationVar.changerType(YakaConstants.BOOLEEN);}	
 }
+
+void typeParam() : {}
+{
+   <ENTIER> {DeclarationParam.changerType(YakaConstants.ENTIER);}	
+ | <BOOLEEN> {DeclarationParam.changerType(YakaConstants.BOOLEEN);}	
+}
+
+void typeFonction() : {}
+{
+   <ENTIER> {DeclarationFonct.changerTypeResult(YakaConstants.ENTIER);}	
+ | <BOOLEEN> {DeclarationFonct.changerTypeResult(YakaConstants.BOOLEEN);}	
+}
+
 /*
  * Syntaxe des instructions.
  */
@@ -320,7 +346,7 @@ void conditionelle() : {}
 
 void retourne() : {}
 {
-	<RETOURNE> expression();
+	<RETOURNE> expression()
 }
 
 /*
@@ -379,6 +405,8 @@ void valeur() : {}
  			 	yvm.iload(((IdVar)id).getOffset());
  			 }else if(id.estConst()){
  			 	yvm.iconst(((IdConst)id).getValeur());
+ 			 }else if(id.estParam()){
+ 			 	yvm.iload(((IdParam)id).getOffset());
  			 }else{System.out.println("Erreur ligne["+cptLigne+"] : type non reconnu");}
  			 }}
  	(argumentsFonction())?
@@ -391,7 +419,7 @@ void valeur() : {}
 
 void argumentsFonction() : {}
 {
-	(expression() ("," expression())* )?
+	"(" (expression() ("," expression())* )? ")"
 }
 
 void opRel() : {}

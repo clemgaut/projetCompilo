@@ -8,11 +8,12 @@ import java.util.HashMap;
 
 public class TabIdent {
 	
-	protected HashMap<String, Ident> globaux;
+	protected HashMap<String, IdFonct> globaux;
 	protected HashMap<String, Ident> locaux;
 	
 	public TabIdent(int taille){
 		locaux = new HashMap<String, Ident>(taille);
+		globaux = new HashMap<String, IdFonct>(taille);
 	}
 	
 	public Ident chercheIdent(String clef){
@@ -34,6 +35,14 @@ public class TabIdent {
 	@Override
 	public String toString() {
 		return "TabIdent [table=" + locaux + "]";
+	}
+	
+	public boolean existeFonct(String clef){
+		return globaux.containsKey(clef);
+	}
+	
+	public void rangeFonction(String clef, IdFonct fonct){
+		globaux.put(clef, fonct);
 	}
 	
 }
