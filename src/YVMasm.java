@@ -61,8 +61,10 @@ public class YVMasm extends YVM{
 
 	@Override
 	public void iload(int offset) {
-		
-		Ecriture.ecrireStringln(fichier, "push word ptr [bp" + offset + "]");
+		if(offset<0)
+			Ecriture.ecrireStringln(fichier, "push word ptr [bp" + offset + "]");
+		else
+			Ecriture.ecrireStringln(fichier, "push word ptr [bp+" + offset + "]");
 	}
 
 	@Override
@@ -70,7 +72,10 @@ public class YVMasm extends YVM{
 		
 		super.istore(offset);
 		Ecriture.ecrireStringln(fichier, "pop ax");
-		Ecriture.ecrireStringln(fichier, "mov word ptr [bp" + offset +"], ax");
+		if(offset<0)
+			Ecriture.ecrireStringln(fichier, "mov word ptr [bp" + offset +"], ax");
+		else
+			Ecriture.ecrireStringln(fichier, "mov word ptr [bp+" + offset +"], ax");
 	}
 
 	@Override

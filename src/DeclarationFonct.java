@@ -20,4 +20,8 @@ public class DeclarationFonct extends Declaration {
 	public static void ajouterFonctCourante(){
 		Yaka.tabIdent.rangeFonction(fonctCourante.getNom(), fonctCourante);
 	}
+	
+	public static int getNbParam(){
+		return fonctCourante.getNbParametres();
+	}
 }

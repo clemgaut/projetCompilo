@@ -15,7 +15,7 @@ public class DeclarationVar extends Declaration implements YakaConstants {
 	}
 	
 	public static void reserverMemoire(){
-		Yaka.yvm.ouvrePrinc(nombre*PAS_PILE);
+		Yaka.yvm.ouvreBloc(nombre*PAS_PILE);
 	}
 	
 	public static void affecteNomIdent(String s){

@@ -152,7 +152,7 @@ public class YVM {
 	}
 	
 	public void iffaux(int nb, String param){
-		Ecriture.ecrireStringln(fichier, "iffaux"+ param+ nb);
+		Ecriture.ecrireStringln(fichier, "iffaux "+ param+ nb);
 	}
 	
 	public void gotoFaire(int nb){
@@ -160,7 +160,7 @@ public class YVM {
 	}
 	
 	public void fait(int nb){
-		Ecriture.ecrireStringln(fichier, "FAIT"+ nb +":");
+		Ecriture.ecrireStringln(fichier, "\nFAIT"+ nb +":");
 	}
 	
 	public void gotoFSI(int nb){
@@ -168,11 +168,11 @@ public class YVM {
 	}
 	
 	public void sinon(int nb){
-		Ecriture.ecrireStringln(fichier, "SINON"+ nb +":");
+		Ecriture.ecrireStringln(fichier, "\nSINON"+ nb +":");
 	}
 	
 	public void finSi(int nb){
-		Ecriture.ecrireStringln(fichier, "FSI"+ nb +":");
+		Ecriture.ecrireStringln(fichier, "\nFSI"+ nb +":");
 	}
 	
 	public void ouvreBloc(int taille_var_loc){
@@ -193,6 +193,10 @@ public class YVM {
 	
 	public void call(String nom){
 		Ecriture.ecrireStringln(fichier, "call " + nom);
+	}
+	
+	public void etiquette(String nom){
+		Ecriture.ecrireStringln(fichier, "\n" + nom + ":");
 	}
 	
 	

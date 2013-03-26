@@ -20,9 +20,17 @@ public class IdFonct extends Ident {
 	public void ajouterParam(int type){
 		parametres.push(type);
 	}
+
+	public Stack<Integer> getParametres() {
+		return (Stack<Integer>) parametres.clone();
+	}
 	
-	public Stack<Integer> getParametres(){
-		return parametres;
+	public int getNbParametres() {
+		return parametres.size();
+	}
+
+	public int getTypeResult() {
+		return typeResult;
 	}
 
 	//TODO Peut etre inutile
