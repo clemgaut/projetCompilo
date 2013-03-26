@@ -20,6 +20,10 @@ public class IdFonct extends Ident {
 	public void ajouterParam(int type){
 		parametres.push(type);
 	}
+	
+	public Stack<Integer> getParametres(){
+		return parametres;
+	}
 
 	//TODO Peut etre inutile
 	public boolean estFonct(){

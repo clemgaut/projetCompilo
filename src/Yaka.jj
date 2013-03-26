@@ -26,6 +26,7 @@ public class Yaka implements Constante{
 	public static int cptLigne = 1;
 	public static int cptIteMax = 1, cptIteCourant = 1;
 	public static int cptCondMax = 1, cptCondCourant = 1;
+	public static ControleTypeParam controleTypeParam = new ControleTypeParam();
 
   public static void main(String args[]) { 
     Yaka analyseur;
@@ -397,19 +398,23 @@ void valeur() : {}
 { <entier>  {expression.empilerType(ENTIER); 
 			 yvm.iconst(YakaTokenManager.entierLu);}
 			 
- | <ident> 	{Ident id = tabIdent.chercheIdent(YakaTokenManager.identLu);
- 			 if(id == null){System.out.println("Erreur ligne["+cptLigne+"] : "+id.getNom()+" non existant");}
- 			 else{
- 			 expression.empilerType(id.getType());
- 			 if(id.estVar()){
- 			 	yvm.iload(((IdVar)id).getOffset());
- 			 }else if(id.estConst()){
- 			 	yvm.iconst(((IdConst)id).getValeur());
- 			 }else if(id.estParam()){
- 			 	yvm.iload(((IdParam)id).getOffset());
- 			 }else{System.out.println("Erreur ligne["+cptLigne+"] : type non reconnu");}
- 			 }}
- 	(argumentsFonction())?
+ | <ident> 	{	if(!tabIdent.existeFonct(YakaTokenManager.identLu)){
+ 					Ident id = tabIdent.chercheIdent(YakaTokenManager.identLu);
+ 			 		if(id == null){System.out.println("Erreur ligne["+cptLigne+"] : "+id.getNom()+" non existant");}
+ 			 		else{
+ 					expression.empilerType(id.getType());
+ 			 		if(id.estVar()){
+ 			 			yvm.iload(((IdVar)id).getOffset());
+ 			 		}else if(id.estConst()){
+ 			 			yvm.iconst(((IdConst)id).getValeur());
+ 			 		}else if(id.estParam()){
+ 			 			yvm.iload(((IdParam)id).getOffset());
+ 			 		}else{System.out.println("Erreur ligne["+cptLigne+"] : type non reconnu");}
+ 			 		}
+ 			 	}}
+ 	(argumentsFonction(){if(controleTypeParam.depilerParamFonction() != FIN_PARAM){
+ 							System.out.println("Erreur ligne["+cptLigne+"] : Nombre d'arguments incompatible");
+ 						}})?
  | <VRAI>   {expression.empilerType(BOOLEEN); 
 			 yvm.iconst(VAL_VRAI);}
  | <FAUX>   {expression.empilerType(BOOLEEN); 
@@ -419,7 +424,26 @@ void valeur() : {}
 
 void argumentsFonction() : {}
 {
-	"(" (expression() ("," expression())* )? ")"
+	"(" {if(!tabIdent.existeFonct(YakaTokenManager.identLu)){
+			System.out.println("Erreur ligne["+cptLigne+"] : La fonction "+YakaTokenManager.identLu+" n'existe pas");
+		}
+		else{
+			IdFonct fonct = tabIdent.getFonct(YakaTokenManager.identLu);
+			controleTypeParam.empilerParamsFonction(fonct.getParametres());			
+		}
+		}
+	
+	(expression(){if(controleTypeParam.voirTypeSommet() == FIN_PARAM){
+						System.out.println("Erreur ligne["+cptLigne+"] : Nombre d'arguments incompatible");
+					}
+					else if(expression.depilerType()!=controleTypeParam.depilerParamFonction()){
+					System.out.println("Erreur ligne["+cptLigne+"] : Types incompatibles");}} 
+					
+	("," expression(){if(controleTypeParam.voirTypeSommet() == FIN_PARAM){
+						System.out.println("Erreur ligne["+cptLigne+"] : Nombre d'arguments incompatible");
+					}
+					else if(expression.depilerType()!=controleTypeParam.depilerParamFonction()){
+					System.out.println("Erreur ligne["+cptLigne+"] : Types incompatibles");}}  )* )? ")"
 }
 
 void opRel() : {}

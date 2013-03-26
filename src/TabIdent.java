@@ -20,8 +20,12 @@ public class TabIdent {
 		return locaux.get(clef);
 	}
 	
+	public IdFonct getFonct(String clef){
+		return globaux.get(clef);
+	}
+	
 	public boolean existeIdent(String clef){
-		return locaux.containsKey(clef);
+		return (locaux.containsKey(clef) || globaux.containsKey(clef));
 	}
 	
 	public void rangeIdent(String clef, Ident id){

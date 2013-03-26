@@ -8,6 +8,7 @@ public class Yaka implements Constante, YakaConstants {
         public static int cptLigne = 1;
         public static int cptIteMax = 1, cptIteCourant = 1;
         public static int cptCondMax = 1, cptCondCourant = 1;
+        public static ControleTypeParam controleTypeParam = new ControleTypeParam();
 
   public static void main(String args[]) {
     Yaka analyseur;
@@ -582,21 +583,26 @@ public class Yaka implements Constante, YakaConstants {
       break;
     case ident:
       jj_consume_token(ident);
-                 Ident id = tabIdent.chercheIdent(YakaTokenManager.identLu);
-                         if(id == null){System.out.println("Erreur ligne["+cptLigne+"] : "+id.getNom()+" non existant");}
-                         else{
-                         expression.empilerType(id.getType());
-                         if(id.estVar()){
-                                yvm.iload(((IdVar)id).getOffset());
-                         }else if(id.estConst()){
-                                yvm.iconst(((IdConst)id).getValeur());
-                         }else if(id.estParam()){
-                                yvm.iload(((IdParam)id).getOffset());
-                         }else{System.out.println("Erreur ligne["+cptLigne+"] : type non reconnu");}
-                         }
+                        if(!tabIdent.existeFonct(YakaTokenManager.identLu)){
+                                        Ident id = tabIdent.chercheIdent(YakaTokenManager.identLu);
+                                        if(id == null){System.out.println("Erreur ligne["+cptLigne+"] : "+id.getNom()+" non existant");}
+                                        else{
+                                        expression.empilerType(id.getType());
+                                        if(id.estVar()){
+                                                yvm.iload(((IdVar)id).getOffset());
+                                        }else if(id.estConst()){
+                                                yvm.iconst(((IdConst)id).getValeur());
+                                        }else if(id.estParam()){
+                                                yvm.iload(((IdParam)id).getOffset());
+                                        }else{System.out.println("Erreur ligne["+cptLigne+"] : type non reconnu");}
+                                        }
+                                }
       switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
       case 51:
         argumentsFonction();
+                             if(controleTypeParam.depilerParamFonction() != FIN_PARAM){
+                                                        System.out.println("Erreur ligne["+cptLigne+"] : Nombre d'arguments incompatible");
+                                                }
         break;
       default:
         jj_la1[22] = jj_gen;
@@ -622,6 +628,13 @@ public class Yaka implements Constante, YakaConstants {
 
   static final public void argumentsFonction() throws ParseException {
     jj_consume_token(51);
+             if(!tabIdent.existeFonct(YakaTokenManager.identLu)){
+                        System.out.println("Erreur ligne["+cptLigne+"] : La fonction "+YakaTokenManager.identLu+" n'existe pas");
+                }
+                else{
+                        IdFonct fonct = tabIdent.getFonct(YakaTokenManager.identLu);
+                        controleTypeParam.empilerParamsFonction(fonct.getParametres());
+                }
     switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
     case VRAI:
     case FAUX:
@@ -631,6 +644,11 @@ public class Yaka implements Constante, YakaConstants {
     case ident:
     case 51:
       expression();
+                      if(controleTypeParam.voirTypeSommet() == FIN_PARAM){
+                                                System.out.println("Erreur ligne["+cptLigne+"] : Nombre d'arguments incompatible");
+                                        }
+                                        else if(expression.depilerType()!=controleTypeParam.depilerParamFonction()){
+                                        System.out.println("Erreur ligne["+cptLigne+"] : Types incompatibles");}
       label_10:
       while (true) {
         switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
@@ -643,6 +661,11 @@ public class Yaka implements Constante, YakaConstants {
         }
         jj_consume_token(52);
         expression();
+                          if(controleTypeParam.voirTypeSommet() == FIN_PARAM){
+                                                System.out.println("Erreur ligne["+cptLigne+"] : Nombre d'arguments incompatible");
+                                        }
+                                        else if(expression.depilerType()!=controleTypeParam.depilerParamFonction()){
+                                        System.out.println("Erreur ligne["+cptLigne+"] : Types incompatibles");}
       }
       break;
     default:
