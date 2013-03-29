@@ -1,3 +1,8 @@
+/**
+ * Gere la declaration des parametres
+ * @author Boyer Alexis, Francois Thomas, Gautrais Clement
+ *
+ */
 
 public class DeclarationParam extends Declaration {
 

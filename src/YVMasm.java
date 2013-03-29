@@ -42,21 +42,20 @@ public class YVMasm extends YVM{
 		Ecriture.ecrireStringln(fichier, ".586");
 		Ecriture.ecrireStringln(fichier, "");
 		Ecriture.ecrireStringln(fichier, ".CODE");
-		Ecriture.ecrireStringln(fichier, "debut :");
-		Ecriture.ecrireStringln(fichier, "STARTUPCODE");
 	}
 	
 	@Override
 	public void queue(){
 		Ecriture.ecrireStringln(fichier, "nop");
 		Ecriture.ecrireStringln(fichier, "EXITCODE");
-		Ecriture.ecrireStringln(fichier, "end debut");
+		Ecriture.ecrireStringln(fichier, "end");
 	}
 
 	@Override
 	public void iconst(int valeur) {
 		
 		Ecriture.ecrireStringln(fichier, "push word ptr " + valeur);
+		Ecriture.ecrireStringln(fichier, "");
 	}
 
 	@Override
@@ -65,6 +64,7 @@ public class YVMasm extends YVM{
 			Ecriture.ecrireStringln(fichier, "push word ptr [bp" + offset + "]");
 		else
 			Ecriture.ecrireStringln(fichier, "push word ptr [bp+" + offset + "]");
+		Ecriture.ecrireStringln(fichier, "");
 	}
 
 	@Override
@@ -76,6 +76,7 @@ public class YVMasm extends YVM{
 			Ecriture.ecrireStringln(fichier, "mov word ptr [bp" + offset +"], ax");
 		else
 			Ecriture.ecrireStringln(fichier, "mov word ptr [bp+" + offset +"], ax");
+		Ecriture.ecrireStringln(fichier, "");
 	}
 
 	@Override
@@ -84,6 +85,7 @@ public class YVMasm extends YVM{
 		Ecriture.ecrireStringln(fichier, "pop ax");
 		Ecriture.ecrireStringln(fichier, "add ax,bx");
 		Ecriture.ecrireStringln(fichier, "push ax");
+		Ecriture.ecrireStringln(fichier, "");
 	}
 
 	@Override
@@ -92,6 +94,7 @@ public class YVMasm extends YVM{
 		Ecriture.ecrireStringln(fichier, "pop ax");
 		Ecriture.ecrireStringln(fichier, "sub ax,bx");
 		Ecriture.ecrireStringln(fichier, "push ax");
+		Ecriture.ecrireStringln(fichier, "");
 	}
 
 	@Override
@@ -100,6 +103,7 @@ public class YVMasm extends YVM{
 		Ecriture.ecrireStringln(fichier, "pop ax");
 		Ecriture.ecrireStringln(fichier, "imul bx");
 		Ecriture.ecrireStringln(fichier, "push ax");
+		Ecriture.ecrireStringln(fichier, "");
 	}
 
 	@Override
@@ -109,6 +113,7 @@ public class YVMasm extends YVM{
 		Ecriture.ecrireStringln(fichier, "cwd");
 		Ecriture.ecrireStringln(fichier, "idiv bx");
 		Ecriture.ecrireStringln(fichier, "push ax");
+		Ecriture.ecrireStringln(fichier, "");
 	}
 
 	@Override
@@ -117,6 +122,7 @@ public class YVMasm extends YVM{
 		Ecriture.ecrireStringln(fichier, "pop ax");
 		Ecriture.ecrireStringln(fichier, "neg ax");
 		Ecriture.ecrireStringln(fichier, "push ax");
+		Ecriture.ecrireStringln(fichier, "");
 
 	}
 
@@ -125,7 +131,8 @@ public class YVMasm extends YVM{
 		Ecriture.ecrireStringln(fichier, "pop bx");
 		Ecriture.ecrireStringln(fichier, "pop ax");
 		Ecriture.ecrireStringln(fichier, "or ax,bx");
-		Ecriture.ecrireStringln(fichier, "push ax");		
+		Ecriture.ecrireStringln(fichier, "push ax");
+		Ecriture.ecrireStringln(fichier, "");
 	}
 
 	@Override
@@ -134,6 +141,7 @@ public class YVMasm extends YVM{
 		Ecriture.ecrireStringln(fichier, "pop ax");
 		Ecriture.ecrireStringln(fichier, "and ax,bx");
 		Ecriture.ecrireStringln(fichier, "push ax");
+		Ecriture.ecrireStringln(fichier, "");
 	}
 
 	@Override
@@ -141,7 +149,8 @@ public class YVMasm extends YVM{
 	public void inot() {
 		Ecriture.ecrireStringln(fichier, "pop ax");
 		Ecriture.ecrireStringln(fichier, "not ax");
-		Ecriture.ecrireStringln(fichier, "push ax");		
+		Ecriture.ecrireStringln(fichier, "push ax");	
+		Ecriture.ecrireStringln(fichier, "");
 	}
 
 	@Override
@@ -152,7 +161,8 @@ public class YVMasm extends YVM{
 		Ecriture.ecrireStringln(fichier, "jge $+6");
 		Ecriture.ecrireStringln(fichier, "push -1");
 		Ecriture.ecrireStringln(fichier, "jmp $+4");
-		Ecriture.ecrireStringln(fichier, "push 0");			
+		Ecriture.ecrireStringln(fichier, "push 0");		
+		Ecriture.ecrireStringln(fichier, "");
 	}
 
 	@Override
@@ -163,7 +173,8 @@ public class YVMasm extends YVM{
 		Ecriture.ecrireStringln(fichier, "jle $+6");
 		Ecriture.ecrireStringln(fichier, "push -1");
 		Ecriture.ecrireStringln(fichier, "jmp $+4");
-		Ecriture.ecrireStringln(fichier, "push 0");			
+		Ecriture.ecrireStringln(fichier, "push 0");		
+		Ecriture.ecrireStringln(fichier, "");
 	}
 
 	@Override
@@ -175,6 +186,7 @@ public class YVMasm extends YVM{
 		Ecriture.ecrireStringln(fichier, "push -1");
 		Ecriture.ecrireStringln(fichier, "jmp $+4");
 		Ecriture.ecrireStringln(fichier, "push 0");		
+		Ecriture.ecrireStringln(fichier, "");
 	}
 
 	@Override
@@ -185,7 +197,9 @@ public class YVMasm extends YVM{
 		Ecriture.ecrireStringln(fichier, "jl $+6");
 		Ecriture.ecrireStringln(fichier, "push -1");
 		Ecriture.ecrireStringln(fichier, "jmp $+4");
-		Ecriture.ecrireStringln(fichier, "push 0");		}
+		Ecriture.ecrireStringln(fichier, "push 0");
+		Ecriture.ecrireStringln(fichier, "");
+		}
 
 	@Override
 	public void iegal() {
@@ -195,7 +209,8 @@ public class YVMasm extends YVM{
 		Ecriture.ecrireStringln(fichier, "jne $+6");
 		Ecriture.ecrireStringln(fichier, "push -1");
 		Ecriture.ecrireStringln(fichier, "jmp $+4");
-		Ecriture.ecrireStringln(fichier, "push 0");				
+		Ecriture.ecrireStringln(fichier, "push 0");	
+		Ecriture.ecrireStringln(fichier, "");
 	}
 
 	@Override
@@ -206,12 +221,14 @@ public class YVMasm extends YVM{
 		Ecriture.ecrireStringln(fichier, "je $+6");
 		Ecriture.ecrireStringln(fichier, "push -1");
 		Ecriture.ecrireStringln(fichier, "jmp $+4");
-		Ecriture.ecrireStringln(fichier, "push 0");				
+		Ecriture.ecrireStringln(fichier, "push 0");	
+		Ecriture.ecrireStringln(fichier, "");
 	}
 	
 	@Override
 	public void ecrireEnt() {
 		Ecriture.ecrireStringln(fichier, "call ecrent");
+		Ecriture.ecrireStringln(fichier, "");
 
 	}
 
@@ -223,12 +240,14 @@ public class YVMasm extends YVM{
 		Ecriture.ecrireStringln(fichier, "lea dx,mess" + compteurChaine);
 		Ecriture.ecrireStringln(fichier, "push dx");
 		Ecriture.ecrireStringln(fichier, "call ecrch");
+		Ecriture.ecrireStringln(fichier, "");
 		compteurChaine++;
 	}
 
 	@Override
 	public void ecrireBool() {
 		Ecriture.ecrireStringln(fichier, "call ecrbool");
+		Ecriture.ecrireStringln(fichier, "");
 	}
 
 	@Override
@@ -236,16 +255,19 @@ public class YVMasm extends YVM{
 		Ecriture.ecrireStringln(fichier, "lea dx, [bp" + offset +"]");
 		Ecriture.ecrireStringln(fichier, "push dx");
 		Ecriture.ecrireStringln(fichier, "call lirent");
+		Ecriture.ecrireStringln(fichier, "");
 	}
 
 	@Override
 	public void aLaLigne() {
 		Ecriture.ecrireStringln(fichier, "call ligsuiv");
+		Ecriture.ecrireStringln(fichier, "");
 	}
 
 	@Override
 	public void faire(int nb) {
 		Ecriture.ecrireStringln(fichier, "FAIRE" + nb +":");
+		Ecriture.ecrireStringln(fichier, "");
 	}
 
 	@Override
@@ -253,57 +275,81 @@ public class YVMasm extends YVM{
 		Ecriture.ecrireStringln(fichier, "pop ax");
 		Ecriture.ecrireStringln(fichier, "cmp ax,0");
 		Ecriture.ecrireStringln(fichier, "je "+ param + nb);
+		Ecriture.ecrireStringln(fichier, "");
 	}
 
 	@Override
 	public void gotoFaire(int nb) {
 		Ecriture.ecrireStringln(fichier, "jmp FAIRE" + nb);
+		Ecriture.ecrireStringln(fichier, "");
 	}
 	
 	@Override
 	public void gotoFSI(int nb) {
-		Ecriture.ecrireStringln(fichier, "jmp FSI" + nb);		
+		Ecriture.ecrireStringln(fichier, "jmp FSI" + nb);
+		Ecriture.ecrireStringln(fichier, "");
 	}
 
 	@Override
 	public void sinon(int nb) {
 		Ecriture.ecrireStringln(fichier, "SINON" + nb +":");
+		Ecriture.ecrireStringln(fichier, "");
 	}
 
 	@Override
 	public void finSi(int nb) {
 		Ecriture.ecrireStringln(fichier, "FSI" + nb +":");
+		Ecriture.ecrireStringln(fichier, "");
 	}
 
 	@Override
 	public void fait(int nb) {
-		Ecriture.ecrireStringln(fichier, "FAIT" + nb +":");		
+		Ecriture.ecrireStringln(fichier, "FAIT" + nb +":");
+		Ecriture.ecrireStringln(fichier, "");
 	}
 
 	@Override
 	public void ouvreBloc(int taille_var_loc) {
 		Ecriture.ecrireStringln(fichier, "enter " + taille_var_loc +",0");
+		Ecriture.ecrireStringln(fichier, "");
+		
 	}
 
 	@Override
 	public void fermeBloc(int taille_param) {
 		Ecriture.ecrireStringln(fichier, "leave");
 		Ecriture.ecrireStringln(fichier, "ret " + taille_param);
+		Ecriture.ecrireStringln(fichier, "");
 	}
 
 	@Override
 	public void ireturn(int offset) {
 		Ecriture.ecrireStringln(fichier, "pop ax");
 		Ecriture.ecrireStringln(fichier, "mov [bp+" + offset +"],ax");
+		Ecriture.ecrireStringln(fichier, "");
 	}
 
 	@Override
 	public void reserveRetour() {
 		Ecriture.ecrireStringln(fichier, "sub sp,2");
+		Ecriture.ecrireStringln(fichier, "");
 	}
 
 	@Override
 	public void call(String nom) {
 		Ecriture.ecrireStringln(fichier, "call " + nom);
+		Ecriture.ecrireStringln(fichier, "");
+	}
+
+	@Override
+	public void etiquette(String nom) {
+		Ecriture.ecrireStringln(fichier, "\n" + nom + ":");
 	}	
+	
+	public void debut(){
+		Ecriture.ecrireStringln(fichier, "debut :");
+		Ecriture.ecrireStringln(fichier, "STARTUPCODE");
+		Ecriture.ecrireStringln(fichier, "");
+		etiquette("main");
+	}
 }

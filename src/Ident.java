@@ -1,3 +1,8 @@
+/**
+ * Represente tous les ident. Classe mere des Id
+ * @author Boyer Alexis, Francois Thomas, Gautrais Clement
+ *
+ */
 
 public class Ident {
 
@@ -31,7 +36,6 @@ public class Ident {
 		return false;
 	}
 	
-	//TODO Peut etre inutile
 	public boolean estFonct(){
 		return false;
 	}

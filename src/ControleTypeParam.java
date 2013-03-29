@@ -3,7 +3,7 @@ import java.util.Stack;
 
 /**
  * Permet de controler les types et le nombre de parametres lors de l'appel des fonctions
- * @author cgautrai
+ * @author Boyer Alexis, Francois Thomas, Gautrais Clement
  *
  */
 public class ControleTypeParam implements Constante{

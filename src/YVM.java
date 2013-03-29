@@ -199,5 +199,8 @@ public class YVM {
 		Ecriture.ecrireStringln(fichier, "\n" + nom + ":");
 	}
 	
+	public void debut(){
+		etiquette("main");
+	}
 	
 }

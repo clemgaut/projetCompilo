@@ -1,8 +1,13 @@
+/**
+ * Gere la declaration des constantes
+ * @author Boyer Alexis, Francois Thomas, Gautrais Clement
+ *
+ */
+
 public class DeclarationConst extends Declaration {
 
 	public DeclarationConst() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	public static void ajouterIdent(Ident id) {

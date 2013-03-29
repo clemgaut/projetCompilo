@@ -1,6 +1,6 @@
 /*
  *
- *       Auteur: Boyer Alexis, Francois Thomas, the G-man
+ *       Auteurs: Boyer Alexis, Francois Thomas, Gautrais Clement
  *
  * 	cr�ation : 13 f�vrier 2002
  *
@@ -50,7 +50,7 @@ public class Yaka implements Constante{
     try {
       analyseur = new Yaka(input);
       analyseur.analyse();
-      System.out.println("analyse syntaxique reussie!");
+      System.out.println("analyse syntaxique terminee!");
     } catch (Exception e) {//Parse exception avant
       String msg = e.getMessage();
       if(msg!=null){
@@ -165,7 +165,7 @@ void analyse() : {}
       <ident>	{yvm.setFichier(YakaTokenManager.identLu + yvm.EXTENSION);
         yvm.entete();}
    (declFonction())*
-   <PRINCIPAL> {yvm.etiquette("main");}
+   <PRINCIPAL> {yvm.debut();}
    bloc()
    <FPRINCIPAL>
    <FPROGRAMME> {yvm.queue();}
@@ -349,7 +349,7 @@ void conditionelle() : {}
 
 void retourne() : {}
 {
-	<RETOURNE> expression() {yvm.ireturn(DeclarationFonct.getNbParam()*2 + 2);}
+	<RETOURNE> expression() {yvm.ireturn(DeclarationFonct.getNbParam()*2 + 4);}
 }
 
 /*
@@ -417,7 +417,7 @@ void valeur() : {}
  			 	}else{yvm.reserveRetour();}}
  	(argumentsFonction(){if(controleTypeParam.depilerParamFonction() != FIN_PARAM){
  							System.out.println("Erreur ligne["+cptLigne+"] : Nombre d'argument incompatible");
- 						}})? {yvm.call(fct);}
+ 						}})? {if(tabIdent.existeFonct(fct)) 						{yvm.call(fct);} 				}
  | <VRAI>   {expression.empilerType(BOOLEEN); 
 			 yvm.iconst(VAL_VRAI);}
  | <FAUX>   {expression.empilerType(BOOLEEN); 

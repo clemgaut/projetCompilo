@@ -1,8 +1,8 @@
 import java.util.Stack;
 
 /**
- * Repr�sente le type fonction
- * @author aboyer
+ * Represente le type fonction
+ * @author Boyer Alexis, Francois Thomas, Gautrais Clement
  *
  */
 
@@ -33,7 +33,6 @@ public class IdFonct extends Ident {
 		return typeResult;
 	}
 
-	//TODO Peut etre inutile
 	public boolean estFonct(){
 		return true;
 	}
