@@ -10,6 +10,10 @@ public class DeclarationFonct extends Declaration {
 	static protected int typeResult;
 	private static IdFonct fonctCourante;
 	
+	public static IdFonct getFonctCourante() {
+		return fonctCourante;
+	}
+
 	public static void changerTypeResult(int nType){
 		typeResult = nType;
 	}

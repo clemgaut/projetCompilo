@@ -32,7 +32,7 @@ public class Yaka implements Constante, YakaConstants {
     try {
       analyseur = new Yaka(input);
       analyseur.analyse();
-      System.out.println("analyse syntaxique reussie!");
+      System.out.println("analyse syntaxique terminee!");
     } catch (Exception e) {//Parse exception avant
       String msg = e.getMessage();
       if(msg!=null){
@@ -126,6 +126,7 @@ public class Yaka implements Constante, YakaConstants {
     jj_consume_token(ident);
                              if(!Yaka.tabIdent.existeIdent(YakaTokenManager.identLu)){
                                                         DeclarationFonct.ajouterParam(DeclarationParam.getType());
+                                                        DeclarationParam.setNbParam(DeclarationFonct.getNbParam()*2);
                                                         DeclarationParam.affecteNomIdent(YakaTokenManager.identLu);}
                                                 else{
                                                 System.out.println("Erreur ligne["+cptLigne+"] : parametre "+ YakaTokenManager.identLu +" deja present");
@@ -363,7 +364,7 @@ public class Yaka implements Constante, YakaConstants {
     expression();
                              if(temp == null || temp.getType() != expression.voirTypeSommet()){
                                                         System.out.println("Erreur ligne["+cptLigne+"] : types incompatibles lors de l'affectation" );
-                                                        }else{yvm.istore(((IdVar)temp).getOffset());
+                                                        }else{yvm.istore((temp).getOffset());
                                                                   //Permet de supprimer le type en sommet de pile
                                                                   expression.depilerType();}
   }
@@ -467,7 +468,10 @@ public class Yaka implements Constante, YakaConstants {
   static final public void retourne() throws ParseException {
     jj_consume_token(RETOURNE);
     expression();
-                                 yvm.ireturn(DeclarationFonct.getNbParam()*2 + 4);
+                                 if(expression.voirTypeSommet() != DeclarationFonct.getFonctCourante().getTypeResult()){
+                                                                System.out.println("Erreur ligne["+cptLigne+"] : Type de retour incorrect");
+                                                }else{
+                                                                yvm.ireturn(DeclarationFonct.getNbParam()*2 + 4);}
   }
 
 /*

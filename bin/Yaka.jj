@@ -195,6 +195,8 @@ void paramForm() : {}
 {
 	typeParam() <ident> {if(!Yaka.tabIdent.existeIdent(YakaTokenManager.identLu)){
 							DeclarationFonct.ajouterParam(DeclarationParam.getType());
+							DeclarationParam.setNbParam(DeclarationFonct.getNbParam()*2); //TODO NbParam n'est pas corect a ce moment. Il faudrait l'appeller aute part : paramForms?
+							//TODO Stocker les parametres sans offset puis le mettre a jour apres calcul du nbParam?
 							DeclarationParam.affecteNomIdent(YakaTokenManager.identLu);}
 						else{
 						System.out.println("Erreur ligne["+cptLigne+"] : parametre "+ YakaTokenManager.identLu +" deja present");
@@ -293,7 +295,7 @@ void affectation() : {}
 	<ident> {Ident temp = tabIdent.chercheIdent(YakaTokenManager.identLu);}
 	<EGAL> expression() {if(temp == null || temp.getType() != expression.voirTypeSommet()){
 							System.out.println("Erreur ligne["+cptLigne+"] : types incompatibles lors de l'affectation" );
-							}else{yvm.istore(((IdVar)temp).getOffset());
+							}else{yvm.istore((temp).getOffset());
 								  //Permet de supprimer le type en sommet de pile
 								  expression.depilerType();}}
 } 
@@ -349,7 +351,9 @@ void conditionelle() : {}
 
 void retourne() : {}
 {
-	<RETOURNE> expression() {yvm.ireturn(DeclarationFonct.getNbParam()*2 + 4);}
+	<RETOURNE> expression() {if(expression.voirTypeSommet() != DeclarationFonct.getFonctCourante().getTypeResult()){	  							System.out.println("Erreur ligne["+cptLigne+"] : Type de retour incorrect");
+	  					}else{  					  
+	  							yvm.ireturn(DeclarationFonct.getNbParam()*2 + 4);}}	
 }
 
 /*

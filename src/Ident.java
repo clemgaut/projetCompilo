@@ -28,6 +28,9 @@ public class Ident {
 		this.type = type;
 	}
 	
+	public int getOffset() {
+		return 0;}
+	
 	public boolean estVar(){
 		return false;
 	}

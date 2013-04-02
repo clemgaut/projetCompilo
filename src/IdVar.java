@@ -12,7 +12,8 @@ public class IdVar extends Ident {
 		super(nom, type);
 		this.offset = offset;
 	}
-
+	
+	@Override
 	public int getOffset() {
 		return offset;
 	}

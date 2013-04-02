@@ -1,0 +1,71 @@
+Noms : BOYER Alexis, FRANCOIS Thomas, GAUTRAIS Clement
+
+
+err01
+
+Erreur ligne[9] : identifiant e deja present
+Erreur ligne[10] : identifiant h non defini
+
+
+err02
+
+
+Erreur ligne[5] : identifiant a deja utilise
+Erreur ligne[6] : identifiant x deja utilise
+ligne[8] : Erreur de syntaxe
+
+
+
+err03
+
+
+Erreur ligne[7] : types incompatibles lors de l'affectation
+Erreur ligne[8] : types incompatibles lors de l'affectation
+Erreur ligne[9] : evaluation de l'expression impossible
+Erreur ligne[9] : types incompatibles lors de l'affectation
+Erreur ligne[10] : evaluation de l'expression impossible
+Erreur ligne[10] : evaluation de l'expression impossible
+Erreur ligne[10] : types incompatibles lors de l'affectation
+Erreur ligne[11] : evaluation de l'expression impossible
+Erreur ligne[11] : types incompatibles lors de l'affectation
+Erreur ligne[12] : evaluation de l'expression impossible
+Erreur ligne[12] : evaluation de l'expression impossible
+Erreur ligne[12] : types incompatibles lors de l'affectation
+Erreur ligne[13] : evaluation de l'expression impossible
+Erreur ligne[13] : types incompatibles lors de l'affectation
+Erreur ligne[14] : evaluation de l'expression impossible
+Erreur ligne[14] : types incompatibles lors de l'affectation
+
+
+err04
+
+Erreur ligne[22] : Types incompatibles
+Erreur ligne[23] : Nombre d'arguments incompatible
+Erreur ligne[23] : types incompatibles lors de l'affectation
+Erreur ligne[24] : Nombre d'argument incompatible
+Erreur ligne[25] : Nombre d'arguments incompatibles
+Erreur ligne[25] : types incompatibles lors de l'affectation
+Erreur ligne[26] : types incompatibles lors de l'affectation
+Erreur ligne[27] : Nombre d'argument incompatible
+Erreur ligne[29] : Nombre d'arguments incompatible
+Erreur ligne[29] : Types incompatibles
+Erreur ligne[29] : types incompatibles lors de l'affectation
+Erreur ligne[30] : Nombre d'arguments incompatible
+Erreur ligne[30] : types incompatibles lors de l'affectation
+Erreur ligne[31] : Types incompatibles
+Erreur ligne[32] : types incompatibles lors de l'affectation
+
+
+
+err05
+
+
+Erreur ligne[7] : Type de retour incorrect
+Erreur ligne[9] : identifiant f deja present
+Erreur ligne[15] : identifiant v deja utilise
+Erreur ligne[20] : Nombre d'argument incompatible
+
+
+
+
+

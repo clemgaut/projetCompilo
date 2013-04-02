@@ -13,9 +13,9 @@ public class DeclarationParam extends Declaration {
 	static protected int nombre = 0;
 
 	//pas pour l'offset
-	static public int PAS_PILE = 2;
+	static protected int PAS_PILE = 2;
 	
-	static public final int TAILLE_PARAM = 4;
+	static protected int TAILLE_PARAM = 0;
 
 	public static void changerType(int nType){
 		type = nType;
@@ -23,6 +23,10 @@ public class DeclarationParam extends Declaration {
 
 	public static int getType(){
 		return type;
+	}
+	
+	public static void setNbParam(int nb){
+		TAILLE_PARAM = nb;
 	}
 	
 	public static void affecteNomIdent(String s){
