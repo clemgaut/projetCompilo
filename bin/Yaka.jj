@@ -1,6 +1,6 @@
 /*
  *
- *       Auteur: Boyer Alexis, Francois Thomas, the G-man
+ *       Auteurs: Boyer Alexis, Francois Thomas, Gautrais Clement
  *
  * 	cr�ation : 13 f�vrier 2002
  *
@@ -50,7 +50,7 @@ public class Yaka implements Constante{
     try {
       analyseur = new Yaka(input);
       analyseur.analyse();
-      System.out.println("analyse syntaxique reussie!");
+      System.out.println("analyse syntaxique terminee!");
     } catch (Exception e) {//Parse exception avant
       String msg = e.getMessage();
       if(msg!=null){
@@ -165,7 +165,7 @@ void analyse() : {}
       <ident>	{yvm.setFichier(YakaTokenManager.identLu + yvm.EXTENSION);
         yvm.entete();}
    (declFonction())*
-   <PRINCIPAL>
+   <PRINCIPAL> {yvm.debut();}
    bloc()
    <FPRINCIPAL>
    <FPROGRAMME> {yvm.queue();}
@@ -177,9 +177,11 @@ void declFonction() : {}
 										System.out.println("Erreur ligne["+cptLigne+"] : identifiant "+ YakaTokenManager.identLu +" deja present" );
 										}else{
 										DeclarationFonct.creerFonct(YakaTokenManager.identLu);
+										yvm.etiquette(YakaTokenManager.identLu);
 										}}
 	paramForms() {DeclarationFonct.ajouterFonctCourante();}
-	bloc() <FFONCTION> {Yaka.tabIdent.effacer();
+	bloc() <FFONCTION> {yvm.fermeBloc(DeclarationFonct.getNbParam()*2);
+						Yaka.tabIdent.effacer();
 						DeclarationVar.initialisationCompteur();
 						DeclarationParam.initialisationCompteur();}
 }
@@ -347,7 +349,7 @@ void conditionelle() : {}
 
 void retourne() : {}
 {
-	<RETOURNE> expression()
+	<RETOURNE> expression() {yvm.ireturn(DeclarationFonct.getNbParam()*2 + 4);}
 }
 
 /*
@@ -398,7 +400,8 @@ void valeur() : {}
 { <entier>  {expression.empilerType(ENTIER); 
 			 yvm.iconst(YakaTokenManager.entierLu);}
 			 
- | <ident> 	{	if(!tabIdent.existeFonct(YakaTokenManager.identLu)){
+ | <ident> 	{	String fct = YakaTokenManager.identLu;
+ 					if(!tabIdent.existeFonct(YakaTokenManager.identLu)){
  					Ident id = tabIdent.chercheIdent(YakaTokenManager.identLu);
  			 		if(id == null){System.out.println("Erreur ligne["+cptLigne+"] : "+id.getNom()+" non existant");}
  			 		else{
@@ -411,10 +414,10 @@ void valeur() : {}
  			 			yvm.iload(((IdParam)id).getOffset());
  			 		}else{System.out.println("Erreur ligne["+cptLigne+"] : type non reconnu");}
  			 		}
- 			 	}}
+ 			 	}else{yvm.reserveRetour();}}
  	(argumentsFonction(){if(controleTypeParam.depilerParamFonction() != FIN_PARAM){
- 							System.out.println("Erreur ligne["+cptLigne+"] : Nombre d'arguments incompatible");
- 						}})?
+ 							System.out.println("Erreur ligne["+cptLigne+"] : Nombre d'argument incompatible");
+ 						}})? {if(tabIdent.existeFonct(fct)) 						{yvm.call(fct);} 				}
  | <VRAI>   {expression.empilerType(BOOLEEN); 
 			 yvm.iconst(VAL_VRAI);}
  | <FAUX>   {expression.empilerType(BOOLEEN); 
@@ -424,7 +427,8 @@ void valeur() : {}
 
 void argumentsFonction() : {}
 {
-	"(" {if(!tabIdent.existeFonct(YakaTokenManager.identLu)){
+	"(" {expression.empilerType(tabIdent.getFonct(YakaTokenManager.identLu).getTypeResult());
+		if(!tabIdent.existeFonct(YakaTokenManager.identLu)){
 			System.out.println("Erreur ligne["+cptLigne+"] : La fonction "+YakaTokenManager.identLu+" n'existe pas");
 		}
 		else{
@@ -434,7 +438,7 @@ void argumentsFonction() : {}
 		}
 	
 	(expression(){if(controleTypeParam.voirTypeSommet() == FIN_PARAM){
-						System.out.println("Erreur ligne["+cptLigne+"] : Nombre d'arguments incompatible");
+						System.out.println("Erreur ligne["+cptLigne+"] : Nombre d'arguments incompatibles");
 					}
 					else if(expression.depilerType()!=controleTypeParam.depilerParamFonction()){
 					System.out.println("Erreur ligne["+cptLigne+"] : Types incompatibles");}} 

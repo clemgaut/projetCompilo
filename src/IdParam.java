@@ -1,3 +1,8 @@
+/**
+ * Contient le type parametre (param)
+ * @author Boyer Alexis, Francois Thomas, Gautrais Clement
+ *
+ */
 
 public class IdParam extends Ident {
 

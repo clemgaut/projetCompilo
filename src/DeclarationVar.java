@@ -1,3 +1,8 @@
+/**
+ * Gere la declaration des variables
+ * @author Boyer Alexis, Francois Thomas, Gautrais Clement
+ *
+ */
 
 public class DeclarationVar extends Declaration implements YakaConstants {
 	

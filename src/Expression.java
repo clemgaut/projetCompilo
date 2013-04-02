@@ -1,3 +1,9 @@
+/**
+ * Controle le type des expressions
+ * @author Boyer Alexis, Francois Thomas, Gautrais Clement
+ *
+ */
+
 import java.util.Stack;
 
 public class Expression implements Constante{

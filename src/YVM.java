@@ -1,3 +1,9 @@
+/**
+ * Genere la traduction en Yaka
+ * @author Boyer Alexis, Francois Thomas, Gautrais Clement
+ *
+ */
+
 import java.io.IOException;
 import java.io.OutputStream;
 

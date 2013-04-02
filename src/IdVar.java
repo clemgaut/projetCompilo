@@ -1,6 +1,6 @@
 /**
  * Contient le type variable (var)
- * @author aboyer
+ * @author Boyer Alexis, Francois Thomas, Gautrais Clement
  *
  */
 

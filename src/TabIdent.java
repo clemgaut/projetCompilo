@@ -2,7 +2,7 @@ import java.util.HashMap;
 
 /**
  * Contient la table des identificateurs
- * @author aboyer
+ * @author Boyer Alexis, Francois Thomas, Gautrais Clement
  *
  */
 

@@ -1,6 +1,6 @@
 /**
- * Repr�sente le type const
- * @author aboyer
+ * Represente le type const
+ * @author Boyer Alexis, Francois Thomas, Gautrais Clement
  *
  */
 

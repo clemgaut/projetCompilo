@@ -1,3 +1,8 @@
+/**
+ * Gere la declaration des fonctions
+ * @author Boyer Alexis, Francois Thomas, Gautrais Clement
+ *
+ */
 
 public class DeclarationFonct extends Declaration {
 	
