@@ -1,3 +1,7 @@
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Set;
+
 /**
  * Gere la declaration des parametres
  * @author Boyer Alexis, Francois Thomas, Gautrais Clement
@@ -31,7 +35,7 @@ public class DeclarationParam extends Declaration {
 	
 	public static void affecteNomIdent(String s){
 		if(!Yaka.tabIdent.existeIdent(s)){
-			Yaka.tabIdent.rangeIdent(s, new IdParam(s, type, TAILLE_PARAM + 4-(nombre+1)*PAS_PILE));
+			Yaka.tabIdent.rangeIdent(s, new IdParam(s, type));
 			nombre++;
 		}
 		else{
@@ -39,6 +43,16 @@ public class DeclarationParam extends Declaration {
 		}
 	}
 
+	public static void setOffset(HashMap<String, Ident> map){
+		Set<String> cles = map.keySet();
+		Iterator it = cles.iterator();
+		for(int i=cles.size() ; i>0 ; i--){
+			String id = (String) it.next();
+			((IdParam) map.get(id)).setOffset(TAILLE_PARAM + 4-(i)*PAS_PILE);
+		}
+	}
+	
+	
 	public static void initialisationCompteur(){
 		nombre=0;
 	}

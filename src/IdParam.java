@@ -13,6 +13,12 @@ public class IdParam extends Ident {
 		this.offset=offset;
 	}
 	
+	//Constructeur avec offset indefini
+	public IdParam(String nom, int type) {
+		super(nom, type);
+		this.offset=0;
+	}
+	
 	@Override
 	public int getOffset() {
 		return offset;

@@ -5,8 +5,8 @@ public class Yaka implements Constante, YakaConstants {
         public static Declaration declaration = new Declaration();
         public static Expression expression = new Expression();
         public static YVMasm yvm = new YVMasm();
+        public static Iteration iter = new Iteration();
         public static int cptLigne = 1;
-        public static int cptIteMax = 1, cptIteCourant = 1;
         public static int cptCondMax = 1, cptCondCourant = 1;
         public static ControleTypeParam controleTypeParam = new ControleTypeParam();
 
@@ -119,6 +119,8 @@ public class Yaka implements Constante, YakaConstants {
       ;
     }
     jj_consume_token(53);
+                                                    DeclarationParam.setNbParam(DeclarationFonct.getNbParam()*2);
+                                                                                                DeclarationParam.setOffset(Yaka.tabIdent.locaux);
   }
 
   static final public void paramForm() throws ParseException {
@@ -126,7 +128,6 @@ public class Yaka implements Constante, YakaConstants {
     jj_consume_token(ident);
                              if(!Yaka.tabIdent.existeIdent(YakaTokenManager.identLu)){
                                                         DeclarationFonct.ajouterParam(DeclarationParam.getType());
-                                                        DeclarationParam.setNbParam(DeclarationFonct.getNbParam()*2);
                                                         DeclarationParam.affecteNomIdent(YakaTokenManager.identLu);}
                                                 else{
                                                 System.out.println("Erreur ligne["+cptLigne+"] : parametre "+ YakaTokenManager.identLu +" deja present");
@@ -422,20 +423,19 @@ public class Yaka implements Constante, YakaConstants {
 
   static final public void iteration() throws ParseException {
     jj_consume_token(TANTQUE);
-                   yvm.faire(cptIteMax);
-                                cptIteCourant = cptIteMax;
-                                cptIteMax++;
+                   iter.pileFait.push(iter.cptIteMax);
+                                yvm.faire(iter.cptIteMax);
     expression();
                       if(expression.voirTypeSommet() != YakaConstants.BOOLEEN){
                                                                 System.out.println("Erreur ligne["+cptLigne+"] : expression non booleene");
                                                         }
     jj_consume_token(FAIRE);
-                 yvm.iffaux(cptIteCourant, "FAIT");
+                 yvm.iffaux(iter.cptIteMax, "FAIT");
+                        iter.cptIteMax++;
     suiteInstr();
     jj_consume_token(FAIT);
-                yvm.gotoFaire(cptIteCourant);
-                        yvm.fait(cptIteCourant);
-                        cptIteCourant--;
+                        yvm.gotoFaire(iter.pileFait.peek());
+                        yvm.fait(iter.pileFait.pop());
   }
 
   static final public void conditionelle() throws ParseException {

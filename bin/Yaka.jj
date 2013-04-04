@@ -2,7 +2,7 @@
  *
  *       Auteurs: Boyer Alexis, Francois Thomas, Gautrais Clement
  *
- * 	cr�ation : 13 f�vrier 2002
+ * 	creation : 13 fevrier 2002
  *
  *     nature : projet etudiant
  *
@@ -23,8 +23,8 @@ public class Yaka implements Constante{
 	public static Declaration declaration = new Declaration();
 	public static Expression expression = new Expression();
 	public static YVMasm yvm = new YVMasm();
+	public static Iteration iter = new Iteration();
 	public static int cptLigne = 1;
-	public static int cptIteMax = 1, cptIteCourant = 1;
 	public static int cptCondMax = 1, cptCondCourant = 1;
 	public static ControleTypeParam controleTypeParam = new ControleTypeParam();
 
@@ -188,15 +188,14 @@ void declFonction() : {}
 
 void paramForms() : {}
 {
-	"(" (paramForm() ("," paramForm())* )? ")"
+	"(" (paramForm() ("," paramForm())* )? ")" {DeclarationParam.setNbParam(DeclarationFonct.getNbParam()*2);
+												DeclarationParam.setOffset(Yaka.tabIdent.locaux);}
 }
 
 void paramForm() : {}
 {
 	typeParam() <ident> {if(!Yaka.tabIdent.existeIdent(YakaTokenManager.identLu)){
 							DeclarationFonct.ajouterParam(DeclarationParam.getType());
-							DeclarationParam.setNbParam(DeclarationFonct.getNbParam()*2); //TODO NbParam n'est pas corect a ce moment. Il faudrait l'appeller aute part : paramForms?
-							//TODO Stocker les parametres sans offset puis le mettre a jour apres calcul du nbParam?
 							DeclarationParam.affecteNomIdent(YakaTokenManager.identLu);}
 						else{
 						System.out.println("Erreur ligne["+cptLigne+"] : parametre "+ YakaTokenManager.identLu +" deja present");
@@ -321,17 +320,17 @@ void ecriture() : {}
 
 void iteration() : {}
 {
-	<TANTQUE> {yvm.faire(cptIteMax);
-				cptIteCourant = cptIteMax;
-				cptIteMax++;}
+	<TANTQUE> {iter.pileFait.push(iter.cptIteMax);
+				yvm.faire(iter.cptIteMax);}
 	expression() {if(expression.voirTypeSommet() != YakaConstants.BOOLEEN){
 								System.out.println("Erreur ligne["+cptLigne+"] : expression non booleene");
 							}}
-	<FAIRE> {yvm.iffaux(cptIteCourant, "FAIT");}
+	<FAIRE> {yvm.iffaux(iter.cptIteMax, "FAIT");
+			iter.cptIteMax++;}
 	suiteInstr()
-	<FAIT> {yvm.gotoFaire(cptIteCourant);
-			yvm.fait(cptIteCourant);
-			cptIteCourant--;}
+	<FAIT> {
+			yvm.gotoFaire(iter.pileFait.peek());
+			yvm.fait(iter.pileFait.pop());}
 }
 
 void conditionelle() : {}
