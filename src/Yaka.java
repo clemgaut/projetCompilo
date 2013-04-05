@@ -6,8 +6,8 @@ public class Yaka implements Constante, YakaConstants {
         public static Expression expression = new Expression();
         public static YVMasm yvm = new YVMasm();
         public static Iteration iter = new Iteration();
+        public static Conditionnelle cond = new Conditionnelle();
         public static int cptLigne = 1;
-        public static int cptCondMax = 1, cptCondCourant = 1;
         public static ControleTypeParam controleTypeParam = new ControleTypeParam();
 
   public static void main(String args[]) {
@@ -440,17 +440,17 @@ public class Yaka implements Constante, YakaConstants {
 
   static final public void conditionelle() throws ParseException {
     jj_consume_token(SI);
-              cptCondCourant = cptCondMax;
-                        cptCondMax++;
+              cond.pileSi.push(cond.cptCondMax);
     expression();
                       if(expression.voirTypeSommet() != YakaConstants.BOOLEEN){
                                                                 System.out.println("Erreur ligne["+cptLigne+"] : expression non booleene");
                                                         }
     jj_consume_token(ALORS);
-                 yvm.iffaux(cptCondCourant, "SINON");
+                 yvm.iffaux(cond.pileSi.peek(), "SINON");
+                        cond.cptCondMax++;
     suiteInstr();
-                      yvm.gotoFSI(cptCondCourant);
-                                yvm.sinon(cptCondCourant);
+                      yvm.gotoFSI(cond.pileSi.peek());
+                                yvm.sinon(cond.pileSi.peek());
     switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
     case SINON:
       jj_consume_token(SINON);
@@ -461,8 +461,7 @@ public class Yaka implements Constante, YakaConstants {
       ;
     }
     jj_consume_token(FSI);
-               yvm.finSi(cptCondCourant);
-                        cptCondCourant--;
+               yvm.finSi(cond.pileSi.pop());
   }
 
   static final public void retourne() throws ParseException {

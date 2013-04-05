@@ -4,7 +4,7 @@
  *
  */
 
-public class IdConst extends Ident {
+public class IdConst extends Ident implements YakaConstants {
 	
 	protected int valeur;
 
@@ -14,6 +14,16 @@ public class IdConst extends Ident {
 	}
 
 	public int getValeur() {
+		switch (valeur) {
+		case VRAI:
+			valeur = -1;
+			break;
+		case FAUX:
+			valeur = 0;
+			break;
+		default:
+			break;
+		}
 		return valeur;
 	}
 	

@@ -24,8 +24,8 @@ public class Yaka implements Constante{
 	public static Expression expression = new Expression();
 	public static YVMasm yvm = new YVMasm();
 	public static Iteration iter = new Iteration();
+	public static Conditionnelle cond = new Conditionnelle();
 	public static int cptLigne = 1;
-	public static int cptCondMax = 1, cptCondCourant = 1;
 	public static ControleTypeParam controleTypeParam = new ControleTypeParam();
 
   public static void main(String args[]) { 
@@ -335,17 +335,16 @@ void iteration() : {}
 
 void conditionelle() : {}
 {
-	<SI> {cptCondCourant = cptCondMax;
-			cptCondMax++;}
+	<SI> {cond.pileSi.push(cond.cptCondMax);}
 	expression() {if(expression.voirTypeSommet() != YakaConstants.BOOLEEN){
 								System.out.println("Erreur ligne["+cptLigne+"] : expression non booleene");
 							}}
-	<ALORS> {yvm.iffaux(cptCondCourant, "SINON");}
-	suiteInstr() {yvm.gotoFSI(cptCondCourant);
-				yvm.sinon(cptCondCourant);}
+	<ALORS> {yvm.iffaux(cond.pileSi.peek(), "SINON");
+			cond.cptCondMax++;}
+	suiteInstr() {yvm.gotoFSI(cond.pileSi.peek());
+				yvm.sinon(cond.pileSi.peek());}
 	(<SINON> suiteInstr())? 
-	<FSI> {yvm.finSi(cptCondCourant);
-			cptCondCourant--;}
+	<FSI> {yvm.finSi(cond.pileSi.pop());}
 }
 
 void retourne() : {}
